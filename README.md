@@ -7,3 +7,4 @@ Serão usadas as seguintes tecnologias para a realização do trabalho:
  - JasperSoft: Para a criação e compilação de relatórios, que serão usados para os PDFs.
  - JUnit: Para realizar os testes automatizados.
  - Java Swing: Junto ao Java, criar as interfaces gráficas.
+ - Astah: Criação e Modelagem dos diagramas.

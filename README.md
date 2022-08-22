@@ -1,6 +1,6 @@
 # Trabalho Oficina de Integração
 
-Tecnoligas utilizadas:
+Tecnologias utilizadas:
  - PostgreSQL
  - Netbeans
  - JasperSoft

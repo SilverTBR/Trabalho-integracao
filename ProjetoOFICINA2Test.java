@@ -52,7 +52,7 @@ public class ProjetoOFICINA2Test {
      */  
  
     @Test
-    public void testTitulo() {
+    public void testTitulo(){
         ProjetoOFICINA2 projeto = new ProjetoOFICINA2();
         assertEquals("Sistema Livraria!", projeto.Titulo());   
     }

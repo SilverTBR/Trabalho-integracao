@@ -1,4 +1,4 @@
-# Trabalho Oficina de Integração
+# Projeto Oficina de Integração
 
 Serão usadas as seguintes tecnologias para a realização do trabalho:
  

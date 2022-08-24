@@ -1,4 +1,5 @@
 # Projeto Oficina de Integração
+Integrantes: Eduardo Pereira Baratera e Guilherme Chizzolini Andreoti
 
 Serão usadas as seguintes tecnologias para a realização do trabalho:
  

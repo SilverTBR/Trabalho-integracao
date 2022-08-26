@@ -16,7 +16,9 @@ Serão usadas as seguintes tecnologias para a realização do trabalho:
  - Java Swing: Junto ao Java, criar as interfaces gráficas.
 
  Para teste:
- - JUnit: Para realizar os testes automatizados. Nesse programa, os testes estão dentro do src, na parte de test.
+ - JUnit: Para realizar os testes automatizados.
+ 
+ - Os testes estão dentro do ProjetoOFICINA2, SRC dentro da pasta test/java/com/mycompany/projetooficina2
  
  Para possiveis diagramas:
  - Astah: Criação e Modelagem dos diagramas.

@@ -2,7 +2,7 @@
 Integrantes: Eduardo Pereira Baratera e Guilherme Chizzolini Andreotti
 
 Descrição do projeto:
-O projeto que será desenvolvido pela dupla será um aplicativo em java para o gerenciamento de uma livraria, em uma face somente para o administrador da livraria, assim não tendo um sistema de login para cada tipo de usuario, enquanto será capaz cadastrar os clientes da livraria, os livros e registrar emprestimos de livros, conforme é também pesquisar e visualizar sobre os mesmos
+O projeto que será desenvolvido pela dupla será um aplicativo em java para o gerenciamento de uma livraria, em uma face somente para o administrador da livraria, assim não tendo um sistema de login para cada tipo de usuario, enquanto será capaz cadastrar os clientes da livraria, os livros e registrar emprestimos de livros, conforme é também pesquisar e visualizar sobre os mesmos, conforme também será capaz de gerar relatorios pdf a partir dos dados cadastrados.
 
 Serão usadas as seguintes tecnologias para a realização do trabalho:
  

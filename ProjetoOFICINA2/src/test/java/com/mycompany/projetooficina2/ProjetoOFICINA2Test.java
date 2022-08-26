@@ -8,10 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Guilherme Andreotti
- */
 public class ProjetoOFICINA2Test {
     
     public ProjetoOFICINA2Test() {

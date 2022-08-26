@@ -1,8 +1,11 @@
 # Projeto Oficina de Integração
-Integrantes: Eduardo Pereira Baratera e Guilherme Chizzolini Andreotti
+
+Integrantes:
+- Eduardo Pereira Baratera 
+- Guilherme Chizzolini Andreotti
 
 Descrição do projeto:
-O projeto que será desenvolvido pela dupla será um aplicativo em java para o gerenciamento de uma livraria, em uma face somente para o administrador da livraria, assim não tendo um sistema de login para cada tipo de usuario, enquanto será capaz cadastrar os clientes da livraria, os livros e registrar emprestimos de livros, conforme é também pesquisar e visualizar sobre os mesmos, conforme também será capaz de gerar relatorios pdf a partir dos dados cadastrados.
+O projeto desenvolvido será uma aplicação JAVA para o gerenciamento de uma livraria, funcionando para o Admnistrador do local, assim não tendo um sistema de login para cada tipo de usuario. Sendo capaz de realizar cadastro de clientes, livros e seus respectivos empréstimos. Desse modo, podendo visualizar tais cadastros como gerar relatórios em PDF a partir desses dados.
 
 Serão usadas as seguintes tecnologias para a realização do trabalho:
  

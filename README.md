@@ -23,4 +23,4 @@ Serão usadas as seguintes tecnologias para a realização do trabalho:
  Para possiveis diagramas:
  - Astah: Criação e Modelagem dos diagramas.
 
-
+Na primeira Sprint, na configuracaobd.properties, deve-se alterar a senha e a conexão com o BD da máquina

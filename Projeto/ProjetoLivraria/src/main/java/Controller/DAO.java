@@ -15,6 +15,7 @@ public abstract class DAO {
     protected Connection connection = null;
     private static final String origem = System.getProperty("user.dir");
     private static final File caminho = new File(origem + "/src/main/java/Controller/configuracaobd.properties");
+    private static final File caminhoTeste = new File(origem + "/src/main/java/Controller/configuracaobdTeste.properties");
         
     public boolean conectar() {
             try {
@@ -45,4 +46,22 @@ public abstract class DAO {
                 return false;
             }
         }
+        
+            public boolean conectarTeste() {
+            try {
+                JDBCUtil.init(caminhoTeste);
+                connection = JDBCUtil.getConnection();
+                connection.setAutoCommit(false);
+                return true;
+            } catch (ClassNotFoundException erro) {
+                System.out.println("Falha ao achar arquivo: " + erro);
+            } catch (IOException erro) {
+                System.out.println("Falha ao carregar arquivo: " + erro);
+            } catch (SQLException erro) {
+                System.out.println("Falha na conexao, comando sql = " + erro);
+            }
+            return false;
+        }
+        
+
 }

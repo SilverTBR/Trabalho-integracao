@@ -45,7 +45,7 @@ public class ClienteDAOTest{
     @Test
     public void testUnicoCadastro(){
           
-        controle.conectar();
+        controle.conectarTeste();
         controle.excluir();     
         try{    
             controle.getCliente().setNome("Teste");
@@ -75,7 +75,7 @@ public class ClienteDAOTest{
     @Test
     public void testDuploCadastro(){
          
-        controle.conectar();
+        controle.conectarTeste();
         controle.excluir();
         
         try{ 
@@ -115,7 +115,7 @@ public class ClienteDAOTest{
     @Test
     public void testBairroInvalido(){
           
-        controle.conectar();
+        controle.conectarTeste();
         controle.excluir();  
         
         try{    
@@ -145,7 +145,7 @@ public class ClienteDAOTest{
     @Test
     public void testCPFInvalido(){
           
-        controle.conectar();
+        controle.conectarTeste();
         controle.excluir();  
         
         try{    
@@ -175,7 +175,7 @@ public class ClienteDAOTest{
     @Test
     public void testCPFVazio(){
           
-        controle.conectar();
+        controle.conectarTeste();
         controle.excluir();  
         
         try{    
@@ -206,7 +206,7 @@ public class ClienteDAOTest{
     @Test
     public void testEstadoInvalido(){
           
-        controle.conectar();
+        controle.conectarTeste();
         controle.excluir();  
         
         try{    

@@ -1,4 +1,4 @@
-EXECUTAR AS LINHAS A SEGUIR EM AMBOS OS BANCOS DE DADOS
+EXECUTAR AS LINHAS A SEGUIR EM AMBOS OS BANCOS DE DADOS.
 ---------------------------------------------------------------------------------
 drop table if exists emprestimo;
 drop table if exists cliente;

@@ -45,7 +45,7 @@ public class LivroDAOTest {
      */
     
     @Test
-    public void testUnicoCadastro(){
+    public void RegistroUnicoTest(){
           
         controle.conectarTeste();
         controle.excluirTodos();
@@ -75,7 +75,7 @@ public class LivroDAOTest {
      */
     
     @Test
-    public void testDuploCadastro(){
+    public void registroDuploTest(){
          
         int i = 0;
         controle.conectarTeste();
@@ -119,7 +119,7 @@ public class LivroDAOTest {
      */ 
     
      @Test
-    public void testPagsCadastroInvalido(){
+    public void qntPgnsInvalidoTest(){
           
         controle.conectarTeste();
         controle.excluirTodos();           
@@ -148,7 +148,7 @@ public class LivroDAOTest {
      */ 
     
     @Test
-    public void testNomeInvalido(){
+    public void nomeInvalidoTest(){
           
         controle.conectarTeste();
         controle.excluirTodos();         
@@ -178,7 +178,7 @@ public class LivroDAOTest {
      */
     
     @Test
-    public void testCampoInvalido(){
+    public void tituloVazioTest(){
           
         controle.conectarTeste();
         controle.excluirTodos();           
@@ -188,7 +188,7 @@ public class LivroDAOTest {
             controle.getLivro().setEditora("Teste");
             controle.getLivro().setNomeAutor("Teste");
             controle.getLivro().setSobrenomeAutor("Teste");
-            controle.getLivro().setQntPgns(0);
+            controle.getLivro().setQntPgns(2);
             controle.inserir();
             controle.consultarTodos();
  

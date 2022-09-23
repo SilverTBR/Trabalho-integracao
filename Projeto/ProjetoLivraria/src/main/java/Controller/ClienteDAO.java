@@ -134,7 +134,7 @@ public class ClienteDAO extends DAO{
     public boolean verificarLetrasCPF(){
         String temp = getCliente().getCPF();
         temp = temp.replace(".", "");
-        temp = temp.replace("-", "");
+        temp = temp.replace("-", "");       
         String valor = temp;
         return NumberExecao.verNum(valor);
     }
@@ -144,7 +144,7 @@ public class ClienteDAO extends DAO{
             JOptionPane.showMessageDialog(null, "Campo do bairro está inválido!\nPor favor, verifique o campo bairro", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if(getCliente().getCPF().isBlank() || getCliente().getCPF().length() != 14 || getCliente().getCPF().charAt(3) != '.' || getCliente().getCPF().charAt(7) != '.' || getCliente().getCPF().charAt(11) != '-' ||  verificarLetrasCPF() == false){
+        if(getCliente().getCPF().isBlank() || getCliente().getCPF().length() != 14 || getCliente().getCPF().charAt(3) != '.' || getCliente().getCPF().charAt(7) != '.' || getCliente().getCPF().charAt(11) != '-' ||  verificarLetrasCPF() == true){
             JOptionPane.showMessageDialog(null, "Campo do CPF está inválido!\nPor favor, verifique o campo CPF", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }

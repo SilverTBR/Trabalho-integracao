@@ -47,7 +47,8 @@ public class LivroDAOTest {
     @Test
     public void RegistroUnicoTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluirTodos();
              
         try{    
@@ -77,8 +78,8 @@ public class LivroDAOTest {
     @Test
     public void registroDuploTest(){
          
-        int i = 0;
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluirTodos();
              
         try{    
@@ -96,18 +97,12 @@ public class LivroDAOTest {
             controle.getLivro().setSobrenomeAutor("Teste2");
             controle.getLivro().setQntPgns(250);
             controle.inserir();
-            
-            controle.consultarTodos();
- 
+            controle.consultarCount();          
             ResultSet rs = controle.getrsdados();
-            
-            while(rs != null && rs.next()){
-                i++;
-            }  
-            
-            assertEquals(2, i);
-            
+           
+            assertEquals(2, rs.getInt(1));
             controle.desconectar();
+           
           
         } catch (SQLException ex) {
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
@@ -121,7 +116,8 @@ public class LivroDAOTest {
      @Test
     public void qntPgnsInvalidoTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluirTodos();           
         try{    
             controle.getLivro().setTitulo("Teste");
@@ -150,7 +146,8 @@ public class LivroDAOTest {
     @Test
     public void nomeInvalidoTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluirTodos();         
         try{    
             controle.getLivro().setTitulo("Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste"
@@ -180,7 +177,8 @@ public class LivroDAOTest {
     @Test
     public void tituloVazioTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluirTodos();           
         try{    
             controle.getLivro().setTitulo("");

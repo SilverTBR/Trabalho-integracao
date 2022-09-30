@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Controller.LivroDAOTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.151 s - in Controller.LivroDAOTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.174 s - in Controller.LivroDAOTest

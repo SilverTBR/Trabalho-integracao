@@ -44,8 +44,9 @@ public class ClienteDAOTest{
     
     @Test
     public void registroUnicoTest(){
-          
-        controle.conectarTeste();
+        
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluir();     
         try{    
             controle.getCliente().setNome("Teste");
@@ -75,7 +76,8 @@ public class ClienteDAOTest{
     @Test
     public void registroDuploTest(){
          
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluir();
         
         try{ 
@@ -115,7 +117,8 @@ public class ClienteDAOTest{
     @Test
     public void invalidoBairroTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluir();  
         
         try{    
@@ -145,7 +148,8 @@ public class ClienteDAOTest{
     @Test
     public void cpfInvalidoTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluir();  
         
         try{    
@@ -175,7 +179,8 @@ public class ClienteDAOTest{
     @Test
     public void cpfVazioTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluir();  
         
         try{    
@@ -206,7 +211,8 @@ public class ClienteDAOTest{
     @Test
     public void invalidoEstadoTest(){
           
-        controle.conectarTeste();
+        controle.setCaminhoTeste();
+        controle.conectar();
         controle.excluir();  
         
         try{    

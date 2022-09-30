@@ -21,6 +21,7 @@ public class LivroDAO extends DAO{
     private static final String inserirLivros = "INSERT INTO livro (titulo, nome_autor, sobrenome_autor, paginas, genero, editora) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String excluirTudo = "delete from livro";  
     private static final String consultarLivro = "SELECT * FROM livro ORDER BY id_livro";
+    private static final String consultarCount = "SELECT COUNT(id_livro) FROM livro";
     
     public boolean inserir() {
         if(verificarCampos()){
@@ -80,6 +81,20 @@ public class LivroDAO extends DAO{
                 rsdados = pstdados.executeQuery();
                 System.out.println(rsdados);
                 System.out.println(consultarLivro);
+                return true;
+            } catch (SQLException erro) {
+                System.out.println("Erro ao executar consulta: " + erro);
+            }
+            return false;
+    }
+    
+        public boolean consultarCount() {
+            try {
+                int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+                int concorrencia = ResultSet.CONCUR_UPDATABLE;
+                pstdados = connection.prepareStatement(consultarCount, tipo, concorrencia);
+                rsdados = pstdados.executeQuery();
+                rsdados.next();
                 return true;
             } catch (SQLException erro) {
                 System.out.println("Erro ao executar consulta: " + erro);

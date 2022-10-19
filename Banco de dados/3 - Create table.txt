@@ -25,11 +25,11 @@ genero varchar(45) not null,
 editora varchar(50) not null
 );
 
-create table if not exists emprestimo(
-id_emprestimo serial primary key ,
+create table if not exists aluguel(
+id_aluguel serial primary key ,
 id_cliente integer not null,
 id_livro integer not null,
-data_emprestimo varchar(10) not null,
+data_aluguel varchar(10) not null,
 data_devolucao varchar(10) not null,
 CONSTRAINT fk_id_cliente
     FOREIGN KEY (id_cliente)

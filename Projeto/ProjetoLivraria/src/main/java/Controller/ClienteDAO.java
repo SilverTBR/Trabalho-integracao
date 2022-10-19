@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Model.Cliente;
+import Model.cliente;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -14,15 +14,17 @@ import javax.swing.JOptionPane;
  *
  * @author EDUARDO
  */
-public class ClienteDAO extends DAO{
+public class clienteDAO extends DAO{
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
-    private Cliente cliente = new Cliente();
+    private cliente cliente = new cliente();
     private static final String inserirClientes = "INSERT INTO cliente (nome, sobrenome, cpf, estado, cidade, bairro, endereco) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String verCPF = "SELECT cpf FROM cliente WHERE cpf = ?";
     private static final String excluirTudo = "delete from cliente";
     private static final String consultarClientes = "SELECT * FROM cliente ORDER BY id_cliente";
     private static final String consultarCount = "SELECT COUNT(id_cliente) FROM cliente";
+    private static final String verCliente = "SELECT id_cliente FROM cliente WHERE id_cliente = ?";
+
     
     
         public boolean inserir() {
@@ -106,7 +108,7 @@ public class ClienteDAO extends DAO{
             return false;
     }
     
-    public Cliente getCliente(){
+    public cliente getCliente(){
         return cliente;
     }
     
@@ -136,7 +138,7 @@ public class ClienteDAO extends DAO{
         temp = temp.replace(".", "");
         temp = temp.replace("-", "");       
         String valor = temp;
-        return NumberExecao.verNum(valor);
+        return numberExecao.verNum(valor);
     }
         
     public boolean verificarCampos(){
@@ -186,4 +188,24 @@ public class ClienteDAO extends DAO{
         getCliente().setSobrenome(null);
     }
     
+
+        
+    public boolean verificarIDCliente(int ID){
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(verCliente, tipo, concorrencia);
+            pstdados.setInt(1, ID);
+            rsdados = pstdados.executeQuery();
+            if (rsdados.next()) {
+                return false;
+            }
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao verificar cliente por ID: " + erro);
+        }
+        return true;
+    }
+    
+
 }

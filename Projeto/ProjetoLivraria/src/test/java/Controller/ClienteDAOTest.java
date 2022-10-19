@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ClienteDAOTest{
     
-    ClienteDAO controle = new ClienteDAO();
+    clienteDAO controle = new clienteDAO();
     
     public ClienteDAOTest() {
     }

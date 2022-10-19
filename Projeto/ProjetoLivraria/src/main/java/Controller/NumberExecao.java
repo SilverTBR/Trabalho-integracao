@@ -8,7 +8,7 @@ package Controller;
  *
  * @author EDUARDO
  */
-public class NumberExecao {
+public class numberExecao {
  
     public static boolean verNum(String campo){
     if(campo == null){

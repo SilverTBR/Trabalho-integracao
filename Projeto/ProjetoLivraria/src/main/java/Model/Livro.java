@@ -8,7 +8,7 @@ package Model;
  *
  * @author EDUARDO
  */
-public class Livro {
+public class livro {
     /**
     * @param idLivro id do livro 
     * @param titulo Titulo do livro

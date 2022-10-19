@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Model.Livro;
+import Model.livro;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -14,14 +14,16 @@ import javax.swing.JOptionPane;
  *
  * @author EDUARDO
  */
-public class LivroDAO extends DAO{
+public class livroDAO extends DAO{
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
-    Livro livro = new Livro();
+    livro livro = new livro();
     private static final String inserirLivros = "INSERT INTO livro (titulo, nome_autor, sobrenome_autor, paginas, genero, editora) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String excluirTudo = "delete from livro";  
     private static final String consultarLivro = "SELECT * FROM livro ORDER BY id_livro";
     private static final String consultarCount = "SELECT COUNT(id_livro) FROM livro";
+    private static final String verLivro = "SELECT id_livro FROM livro WHERE id_livro = ?";
+
     
     public boolean inserir() {
         if(verificarCampos()){
@@ -102,7 +104,7 @@ public class LivroDAO extends DAO{
             return false;
     }
     
-    public Livro getLivro(){
+    public livro getLivro(){
         return livro;
     }
     public ResultSet getrsdados(){
@@ -146,6 +148,23 @@ public class LivroDAO extends DAO{
         getLivro().setQntPgns(0);
         getLivro().setSobrenomeAutor("");
         getLivro().setTitulo("");
+    }
+    
+    public boolean verificarIDLivro(int ID){
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(verLivro, tipo, concorrencia);
+            pstdados.setInt(1, ID);
+            rsdados = pstdados.executeQuery();
+            if (rsdados.next()) {
+                return false;
+            }
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao verificar ID do Livro: " + erro);
+        }
+        return true;
     }
 
 }

@@ -4,19 +4,19 @@
  */
 package View;
 
-import Controller.LivroDAO;
+import Controller.livroDAO;
 import java.awt.event.KeyEvent;
 
 /**
  *
  * @author EDUARDO
  */
-public class JFLivro extends javax.swing.JFrame {
+public class jfLivro extends javax.swing.JFrame {
 
-    protected LivroDAO controle = new LivroDAO();
+    protected livroDAO controle = new livroDAO();
     protected boolean selec = false;
 
-    public JFLivro() {
+    public jfLivro() {
         initComponents();
         controle.conectar();
 
@@ -54,6 +54,7 @@ public class JFLivro extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         JPBarrinha = new javax.swing.JPanel();
         jBClientes = new javax.swing.JButton();
+        jBAluguel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -195,6 +196,20 @@ public class JFLivro extends javax.swing.JFrame {
             }
         });
 
+        jBAluguel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBAluguel.setText("ALUGUEL");
+        jBAluguel.setPreferredSize(new java.awt.Dimension(87, 23));
+        jBAluguel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBAluguelMouseClicked(evt);
+            }
+        });
+        jBAluguel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAluguelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -208,7 +223,9 @@ public class JFLivro extends javax.swing.JFrame {
                             .addComponent(JPBarrinha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jBClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -220,6 +237,8 @@ public class JFLivro extends javax.swing.JFrame {
                 .addComponent(JPBarrinha, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBClientes)
+                .addGap(18, 18, 18)
+                .addComponent(jBAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -333,7 +352,7 @@ public class JFLivro extends javax.swing.JFrame {
 
     private void jBClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBClientesMouseClicked
         controle.desconectar();
-        JFCliente jfc = new JFCliente();
+        jfCliente jfc = new jfCliente();
         jfc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBClientesMouseClicked
@@ -344,6 +363,17 @@ public class JFLivro extends javax.swing.JFrame {
            evt.consume();
         }
     }//GEN-LAST:event_jTQntPgsKeyTyped
+
+    private void jBAluguelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAluguelMouseClicked
+        controle.desconectar();
+        jfAluguel jfa = new jfAluguel();
+        jfa.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBAluguelMouseClicked
+
+    private void jBAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAluguelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBAluguelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,21 +392,23 @@ public class JFLivro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFLivro().setVisible(true);
+                new jfLivro().setVisible(true);
             }
         });
     }
@@ -419,6 +451,7 @@ public class JFLivro extends javax.swing.JFrame {
     private javax.swing.JPanel JBackground;
     private javax.swing.JPanel JPBarrinha;
     private javax.swing.JPanel JPTitulo;
+    private javax.swing.JButton jBAluguel;
     private javax.swing.JButton jBClientes;
     private javax.swing.JButton jBEnviar;
     private javax.swing.JLabel jLCidade;

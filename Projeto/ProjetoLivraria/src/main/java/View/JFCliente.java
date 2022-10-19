@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.ClienteDAO;
+import Controller.clienteDAO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -13,12 +13,12 @@ import javax.swing.UIManager;
  *
  * @author EDUARDO
  */
-public class JFCliente extends javax.swing.JFrame {
+public class jfCliente extends javax.swing.JFrame {
 
-    protected ClienteDAO controle = new ClienteDAO();
+    protected clienteDAO controle = new clienteDAO();
     protected boolean selec = false;
 
-    public JFCliente() {
+    public jfCliente() {
         initComponents();
         controle.conectar();
 
@@ -58,6 +58,7 @@ public class JFCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         JPBarrinha = new javax.swing.JPanel();
         jBLivros = new javax.swing.JButton();
+        jBAluguel = new javax.swing.JButton();
         jLFechar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -207,6 +208,20 @@ public class JFCliente extends javax.swing.JFrame {
             }
         });
 
+        jBAluguel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBAluguel.setText("ALUGUEL");
+        jBAluguel.setPreferredSize(new java.awt.Dimension(87, 23));
+        jBAluguel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBAluguelMouseClicked(evt);
+            }
+        });
+        jBAluguel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAluguelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -220,7 +235,9 @@ public class JFCliente extends javax.swing.JFrame {
                             .addComponent(JPBarrinha, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jBLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
@@ -232,6 +249,8 @@ public class JFCliente extends javax.swing.JFrame {
                 .addComponent(JPBarrinha, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -339,7 +358,7 @@ public class JFCliente extends javax.swing.JFrame {
                         .addComponent(jLCPF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -373,7 +392,7 @@ public class JFCliente extends javax.swing.JFrame {
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
         controle.desconectar();
-        JFLivro jfl = new JFLivro();
+        jfLivro jfl = new jfLivro();
         jfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBLivrosMouseClicked
@@ -390,6 +409,17 @@ public class JFCliente extends javax.swing.JFrame {
     private void jLFecharMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLFecharMouseExited
         jLFechar.setForeground(UIManager.getColor("control"));
     }//GEN-LAST:event_jLFecharMouseExited
+
+    private void jBAluguelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAluguelMouseClicked
+        controle.desconectar();
+        jfAluguel jfa = new jfAluguel();
+        jfa.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBAluguelMouseClicked
+
+    private void jBAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAluguelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBAluguelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,20 +438,21 @@ public class JFCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFCliente().setVisible(true);
+                new jfCliente().setVisible(true);
             }
         });
     }
@@ -465,6 +496,7 @@ public class JFCliente extends javax.swing.JFrame {
     private javax.swing.JPanel JBackground;
     private javax.swing.JPanel JPBarrinha;
     private javax.swing.JPanel JPTitulo;
+    private javax.swing.JButton jBAluguel;
     private javax.swing.JButton jBEnviar;
     private javax.swing.JButton jBLivros;
     private javax.swing.JLabel jLCPF;

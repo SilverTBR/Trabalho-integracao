@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class LivroDAOTest {
     
-    LivroDAO controle = new LivroDAO();
+    livroDAO controle = new livroDAO();
     
     public LivroDAOTest() {
     }

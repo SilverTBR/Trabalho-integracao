@@ -17,8 +17,10 @@ public class aluguelDAO extends DAO{
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
     private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao) VALUES (?, ?, ?, ?)";
-    private static final String consultarAluguel = "SELECT * FROM aluguel ORDER BY id_aluguel";
-
+    private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
+    private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and cliente.nome like ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
+    private static final String verLivroAlugado = "SELECT id_aluguel FROM aluguel, livro where aluguel.id_livro = ?";
+    
     public boolean Inserir() {
         if(verificarCampos()){
             try {
@@ -77,9 +79,12 @@ public class aluguelDAO extends DAO{
                 modeloJT.addRow(new Object[0]);
                 modeloJT.setValueAt(rsdados.getInt("id_aluguel"), linha, 0);
                 modeloJT.setValueAt(rsdados.getInt("id_cliente"), linha, 1);
-                modeloJT.setValueAt(rsdados.getInt("id_livro"), linha, 2);
-                modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 3);
-                modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 4);
+                modeloJT.setValueAt(rsdados.getString("nome"), linha, 2);
+                modeloJT.setValueAt(rsdados.getString("sobrenome"), linha, 3);
+                modeloJT.setValueAt(rsdados.getInt("id_livro"), linha, 4);
+                modeloJT.setValueAt(rsdados.getString("titulo"), linha, 5);
+                modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 6);
+                modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 7);
 
                 linha++;
             }
@@ -109,13 +114,13 @@ public class aluguelDAO extends DAO{
     
         public boolean verificarCampos(){
 
-        if(Aluguel.getDataDev().trim().length() != 10){
+        if(Aluguel.getDataDev().replaceAll("\\s+","").length() != 10){
             
             JOptionPane.showMessageDialog(null, "Campo da data de devolução está invalido!\nPor favor, verifique o campo de data de devolução", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if(Aluguel.getDataAluguel().trim().length() != 10){
-            JOptionPane.showMessageDialog(null, "Campo da data de empréstimo está invalido!\nPor favor, verifique o campo de data de empréstimo", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+        if(Aluguel.getDataAluguel().replaceAll("\\s+","").length() != 10){
+            JOptionPane.showMessageDialog(null, "Campo da data de aluguel está invalido!\nPor favor, verifique o campo de data de aluguel", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if(Aluguel.getIdCliente() == 0 || numberExecao.verNum(Integer.toString(Aluguel.getIdCliente())) || verCliente(Aluguel.getIdCliente())){
@@ -126,7 +131,49 @@ public class aluguelDAO extends DAO{
             JOptionPane.showMessageDialog(null, "Campo ID do livro está invalido!\nPor favor, verifique o campo do ID do livro", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        if(verificarLivroAlugado()){
+            JOptionPane.showMessageDialog(null,"Livro solicitado já foi alugado!\nPor favor, selecione por outro livro!","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
   
+        return true;
+    }
+        
+    public boolean pesquisarAluguel(String busca) {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(buscarAluguel, tipo, concorrencia);
+            pstdados.setString(1, busca);
+            rsdados = pstdados.executeQuery();
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar pesquisa: " + erro);
+        }
+        return false;
+    }
+    
+    public TableModel getPesquisaModel(String busca){
+        conectar();
+        pesquisarAluguel(busca);
+        controleLivro.desconectar();
+        return gerarTabela();
+    }
+    
+        public boolean verificarLivroAlugado(){
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(verLivroAlugado, tipo, concorrencia);
+            pstdados.setInt(1, Aluguel.getIdLivro());
+            rsdados = pstdados.executeQuery();
+            if (rsdados.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao verificar cliente pendente: " + erro);
+        }
         return true;
     }
 

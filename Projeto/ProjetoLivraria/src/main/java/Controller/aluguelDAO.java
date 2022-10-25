@@ -20,6 +20,8 @@ public class aluguelDAO extends DAO{
     private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and cliente.nome like ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String verLivroAlugado = "SELECT id_aluguel FROM aluguel, livro where aluguel.id_livro = ?";
+    private static final String excluirTudo = "delete from aluguel";
+    private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
     
     public boolean Inserir() {
         if(verificarCampos()){
@@ -47,7 +49,28 @@ public class aluguelDAO extends DAO{
                 return false;
     }
     
-        public boolean ConsultarTodos() {
+      public boolean excluir() {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(excluirTudo, tipo, concorrencia);
+            int resposta = pstdados.executeUpdate(); 
+            pstdados.close();
+            
+            if (resposta >= 1) {
+                connection.commit();
+                return true;
+            } else {
+                connection.rollback();
+                return false;
+            }
+        } catch (SQLException erro) {
+            System.out.println("Erro na execução da exclusão: " + erro);
+        }
+        return false;
+    }  
+      
+    public boolean ConsultarTodos() {
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
@@ -60,6 +83,20 @@ public class aluguelDAO extends DAO{
         return false;
     }
         
+    public boolean consultarCount() {
+            try {
+                int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+                int concorrencia = ResultSet.CONCUR_UPDATABLE;
+                pstdados = connection.prepareStatement(consultarCount, tipo, concorrencia);
+                rsdados = pstdados.executeQuery();
+                rsdados.next();
+                return true;
+            } catch (SQLException erro) {
+                System.out.println("Erro ao executar consulta: " + erro);
+            }
+            return false;
+    }
+    
     public TableModel gerarTabela(){
         int linha = 0;
         DefaultTableModel modeloJT = new DefaultTableModel(){
@@ -110,6 +147,9 @@ public class aluguelDAO extends DAO{
     
     public aluguel getAluguel(){
         return Aluguel;
+    }
+    public ResultSet getrsdados(){
+        return rsdados;
     }
     
         public boolean verificarCampos(){

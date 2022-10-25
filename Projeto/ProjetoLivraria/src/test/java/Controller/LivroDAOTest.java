@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LivroDAOTest {
     
     livroDAO controle = new livroDAO();
+    aluguelDAO aluguel = new aluguelDAO();
     
     public LivroDAOTest() {
     }
@@ -40,6 +41,25 @@ public class LivroDAOTest {
     public void tearDown() {
     }
     
+    public livroDAO criaLivroGenerico()
+    {
+        
+        controle.setCaminhoTeste();
+        controle.conectar();
+        aluguel.conectar();
+        aluguel.excluir();
+        controle.excluirTodos();  
+        
+        controle.getLivro().setTitulo("Teste");
+        controle.getLivro().setGenero("Teste");
+        controle.getLivro().setEditora("Teste");
+        controle.getLivro().setNomeAutor("Teste");
+        controle.getLivro().setSobrenomeAutor("Teste");
+        controle.getLivro().setQntPgns(150);
+        
+        return controle;
+    }
+    
     /**
      * Teste com cadastro dando sucesso.
      */
@@ -47,21 +67,11 @@ public class LivroDAOTest {
     @Test
     public void RegistroUnicoTest(){
           
-        controle.setCaminhoTeste();
-        controle.conectar();
-        controle.excluirTodos();
-             
-        try{    
-            controle.getLivro().setTitulo("Teste");
-            controle.getLivro().setGenero("Teste");
-            controle.getLivro().setEditora("Teste");
-            controle.getLivro().setNomeAutor("Teste");
-            controle.getLivro().setSobrenomeAutor("Teste");
-            controle.getLivro().setQntPgns(150);
-            controle.inserir();
-            controle.consultarTodos();
- 
-            ResultSet rs = controle.getrsdados();
+        controle = criaLivroGenerico();
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        try{
             assertEquals(true,rs.next());
             
             controle.desconectar();
@@ -80,6 +90,8 @@ public class LivroDAOTest {
          
         controle.setCaminhoTeste();
         controle.conectar();
+        aluguel.conectar();
+        aluguel.excluir();
         controle.excluirTodos();
              
         try{    
@@ -116,19 +128,11 @@ public class LivroDAOTest {
      @Test
     public void qntPgnsInvalidoTest(){
           
-        controle.setCaminhoTeste();
-        controle.conectar();
-        controle.excluirTodos();           
-        try{    
-            controle.getLivro().setTitulo("Teste");
-            controle.getLivro().setGenero("Teste");
-            controle.getLivro().setEditora("Teste");
-            controle.getLivro().setNomeAutor("Teste");
-            controle.getLivro().setSobrenomeAutor("Teste");
-            controle.getLivro().setQntPgns(0);
-            controle.inserir();
-            controle.consultarTodos();
- 
+        controle = criaLivroGenerico();
+        controle.getLivro().setQntPgns(0);
+        controle.inserir();
+        controle.consultarTodos();      
+        try{
             ResultSet rs = controle.getrsdados();
             assertEquals(false,rs.next());
             
@@ -145,21 +149,13 @@ public class LivroDAOTest {
     
     @Test
     public void nomeInvalidoTest(){
-          
-        controle.setCaminhoTeste();
-        controle.conectar();
-        controle.excluirTodos();         
-        try{    
-            controle.getLivro().setTitulo("Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste"
-            + "Teste Teste Teste Teste Teste Teste Teste");
-            controle.getLivro().setGenero("Teste");
-            controle.getLivro().setEditora("Teste");
-            controle.getLivro().setNomeAutor("Teste");
-            controle.getLivro().setSobrenomeAutor("Teste");
-            controle.getLivro().setQntPgns(78);
-            controle.inserir();
-            controle.consultarTodos();
- 
+   
+        controle = criaLivroGenerico();
+        controle.getLivro().setTitulo("Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste"
+        + "Teste Teste Teste Teste Teste Teste Teste");     
+        controle.inserir();
+        controle.consultarTodos();      
+        try{
             ResultSet rs = controle.getrsdados();
             assertEquals(false,rs.next());
             
@@ -177,19 +173,11 @@ public class LivroDAOTest {
     @Test
     public void tituloVazioTest(){
           
-        controle.setCaminhoTeste();
-        controle.conectar();
-        controle.excluirTodos();           
-        try{    
-            controle.getLivro().setTitulo("");
-            controle.getLivro().setGenero("Teste");
-            controle.getLivro().setEditora("Teste");
-            controle.getLivro().setNomeAutor("Teste");
-            controle.getLivro().setSobrenomeAutor("Teste");
-            controle.getLivro().setQntPgns(2);
-            controle.inserir();
-            controle.consultarTodos();
- 
+        controle = criaLivroGenerico();
+        controle.getLivro().setTitulo("");
+        controle.inserir();
+        controle.consultarTodos();      
+        try{
             ResultSet rs = controle.getrsdados();
             assertEquals(false,rs.next());
             

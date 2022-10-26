@@ -117,7 +117,7 @@ public class aluguelDAOTest{
     }
     
     @Test
-    public void registroUnicoTest() throws SQLException{
+    public void registroUnicoTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
         controle.Inserir();
@@ -133,7 +133,7 @@ public class aluguelDAOTest{
     } 
         
     @Test
-    public void invalidoIDTest() throws SQLException{
+    public void invalidoIDTest(){
         
         controle = criaAluguel(2, criaLivro());
         controle.Inserir();
@@ -149,7 +149,7 @@ public class aluguelDAOTest{
     }
     
     @Test
-    public void invalidoDataTest() throws SQLException{
+    public void invalidoDataTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
         controle.getAluguel().setDataAluguel("02-09-202");
@@ -166,7 +166,7 @@ public class aluguelDAOTest{
     }  
     
     @Test
-    public void doisEmprestimosTest() throws SQLException{
+    public void doisEmprestimosTest(){
         
         int idCli, idLiv = 0;
         idCli = criaCliente();
@@ -181,8 +181,32 @@ public class aluguelDAOTest{
         controle.consultarCount();          
         ResultSet rs = controle.getrsdados();
         
-        assertEquals(1, rs.getInt(1));
+        try {
+            assertEquals(1, rs.getInt(1));
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }
         controle.desconectar();
          
-    }       
+    }    
+    
+    @Test
+    public void pesquisaTest(){
+        
+        controle = criaAluguel(criaCliente(), criaLivro());
+        controle.Inserir();
+        controle.pesquisarAluguel("Teste Aluguel");
+          
+        try{
+          ResultSet rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals("Teste Aluguel",rs.getString("nome"));
+          }
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }        
+    }  
+    
 }

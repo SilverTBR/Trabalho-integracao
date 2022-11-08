@@ -7,7 +7,9 @@ package View;
 import Controller.aluguelDAO;
 import java.awt.Color;
 import javax.swing.UIManager;
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 /**
  *
  * @author EDUARDO
@@ -21,6 +23,9 @@ public final class jfAluguel extends javax.swing.JFrame {
         initComponents();
         controle.conectar();
         atualizarTabelaTudo();
+        getAtualData();
+        jTClientes.setModel(controle.getClienteModel("%%"));
+        jTLivros.setModel(controle.getLivroModel("%%"));
     }
 
     /**
@@ -38,10 +43,6 @@ public final class jfAluguel extends javax.swing.JFrame {
         jLNomeAba = new javax.swing.JLabel();
         jPBarrinhaAba = new javax.swing.JPanel();
         jLTituloCad = new javax.swing.JLabel();
-        jLIdClientes = new javax.swing.JLabel();
-        jTIdClientes = new javax.swing.JTextField();
-        jLIdLivro = new javax.swing.JLabel();
-        jTiDLivro = new javax.swing.JTextField();
         jBEnviar = new javax.swing.JButton();
         jPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,6 +61,20 @@ public final class jfAluguel extends javax.swing.JFrame {
         jBBusca = new javax.swing.JButton();
         jBResetar = new javax.swing.JButton();
         jLTituloCad1 = new javax.swing.JLabel();
+        jLCliente = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTClientes = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTLivros = new javax.swing.JTable();
+        jLLivro = new javax.swing.JLabel();
+        jLBuscaClientes = new javax.swing.JLabel();
+        jTBuscaClientes = new javax.swing.JTextField();
+        jBBuscaClientes = new javax.swing.JButton();
+        jBResetarClientes = new javax.swing.JButton();
+        jLBuscaLivros = new javax.swing.JLabel();
+        jTBuscaLivros = new javax.swing.JTextField();
+        jBBuscaLivros = new javax.swing.JButton();
+        jBResetarLivros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -119,28 +134,18 @@ public final class jfAluguel extends javax.swing.JFrame {
             .addGroup(JPTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(614, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         JPTituloLayout.setVerticalGroup(
             JPTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPTituloLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         jLTituloCad.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLTituloCad.setText("ALUGAR");
-
-        jLIdClientes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLIdClientes.setText("ID do clientes:");
-
-        jTIdClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        jLIdLivro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLIdLivro.setText("ID do livro:");
-
-        jTiDLivro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jBEnviar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBEnviar.setText("Enviar");
@@ -308,6 +313,74 @@ public final class jfAluguel extends javax.swing.JFrame {
         jLTituloCad1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLTituloCad1.setText("CONSULTAR");
 
+        jLCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLCliente.setText("LISTA DOS CLIENTES:");
+
+        jTClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(jTClientes);
+
+        jTLivros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(jTLivros);
+
+        jLLivro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLLivro.setText("LISTA DOS LIVROS:");
+
+        jLBuscaClientes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLBuscaClientes.setText("Nome:");
+
+        jTBuscaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jBBuscaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBBuscaClientes.setText("Buscar");
+        jBBuscaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBBuscaClientesMouseClicked(evt);
+            }
+        });
+
+        jBResetarClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBResetarClientes.setText("Resetar");
+        jBResetarClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBResetarClientesMouseClicked(evt);
+            }
+        });
+
+        jLBuscaLivros.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLBuscaLivros.setText("Titulo:");
+
+        jTBuscaLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jBBuscaLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBBuscaLivros.setText("Buscar");
+        jBBuscaLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBBuscaLivrosMouseClicked(evt);
+            }
+        });
+
+        jBResetarLivros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBResetarLivros.setText("Resetar");
+        jBResetarLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBResetarLivrosMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -315,43 +388,62 @@ public final class jfAluguel extends javax.swing.JFrame {
             .addGroup(JBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JBackgroundLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JBackgroundLayout.createSequentialGroup()
-                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLIdClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLTituloCad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTIdClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                    .addComponent(jTiDLivro))
-                                .addGap(30, 30, 30)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLDataAluguel)
-                                    .addComponent(jLDataDev, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTDataAluguel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTDataDev, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jBEnviar))
+                                    .addComponent(jLTituloCad, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(JBackgroundLayout.createSequentialGroup()
+                                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                                .addComponent(jLBuscaClientes)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTBuscaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTDataAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLDataAluguel)
+                                            .addComponent(jLDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBEnviar))
+                                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                                .addComponent(jLBuscaLivros)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTBuscaLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLLivro)
+                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                .addComponent(jBBuscaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBResetarClientes)
+                                .addGap(124, 124, 124)
+                                .addComponent(jBBuscaLivros)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(jBResetarLivros)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jTBusca)
-                            .addGroup(JBackgroundLayout.createSequentialGroup()
-                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLTituloCad1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLBusca)
-                                    .addGroup(JBackgroundLayout.createSequentialGroup()
-                                        .addComponent(jBBusca)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBResetar)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                            .addComponent(jLTituloCad1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLBusca)
+                            .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTBusca, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(JBackgroundLayout.createSequentialGroup()
+                                    .addComponent(jBBusca)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBResetar))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addComponent(JPTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         JBackgroundLayout.setVerticalGroup(
             JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,10 +452,11 @@ public final class jfAluguel extends javax.swing.JFrame {
                 .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLTituloCad1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLBusca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,27 +468,44 @@ public final class jfAluguel extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLTituloCad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JBackgroundLayout.createSequentialGroup()
-                                .addComponent(jLIdClientes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTIdClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLIdLivro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTiDLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(JBackgroundLayout.createSequentialGroup()
-                                .addComponent(jLDataAluguel)
-                                .addGap(5, 5, 5)
+                                .addGap(27, 27, 27)
                                 .addComponent(jTDataAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLDataDev)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jBEnviar))
+                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLCliente)
+                                    .addComponent(jLDataAluguel)
+                                    .addComponent(jLLivro))
+                                .addGap(4, 4, 4)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBEnviar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTBuscaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLBuscaClientes))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jBBuscaClientes)
+                                    .addComponent(jBResetarClientes)))
+                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLBuscaLivros)
+                                    .addComponent(jTBuscaLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jBBuscaLivros)
+                                    .addComponent(jBResetarLivros))))))
                 .addContainerGap())
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -404,13 +514,11 @@ public final class jfAluguel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
+            .addComponent(JBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1271, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(JBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(JBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
         );
 
         pack();
@@ -418,11 +526,15 @@ public final class jfAluguel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEnviarMouseClicked
-        enviarAluguel();
-        if(controle.Inserir()){
-            limparCampos();
+        if(verificarSelecao()){
+            enviarAluguel();
+            if(controle.Inserir()){
+                limparCampos();            
+                jTClientes.setModel(controle.getClienteModel("%%"));
+                jTLivros.setModel(controle.getLivroModel("%%"));
+                atualizarTabelaTudo();
+            }
         }
-        atualizarTabelaTudo();
     }//GEN-LAST:event_jBEnviarMouseClicked
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
@@ -462,6 +574,26 @@ public final class jfAluguel extends javax.swing.JFrame {
     private void jBBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBBuscaActionPerformed
+
+    private void jBBuscaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscaClientesMouseClicked
+        jTClientes.setModel(controle.getClienteModel("%"+jTBuscaClientes.getText()+"%"));
+        jTBuscaClientes.setText("");
+    }//GEN-LAST:event_jBBuscaClientesMouseClicked
+
+    private void jBResetarClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBResetarClientesMouseClicked
+        jTClientes.setModel(controle.getClienteModel("%%"));
+        jTBuscaClientes.setText("");
+    }//GEN-LAST:event_jBResetarClientesMouseClicked
+
+    private void jBBuscaLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscaLivrosMouseClicked
+        jTLivros.setModel(controle.getLivroModel("%"+jTBuscaLivros.getText()+"%"));
+        jTBuscaLivros.setText("");
+    }//GEN-LAST:event_jBBuscaLivrosMouseClicked
+
+    private void jBResetarLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBResetarLivrosMouseClicked
+        jTLivros.setModel(controle.getLivroModel("%%"));
+        jTBuscaLivros.setText("");
+    }//GEN-LAST:event_jBResetarLivrosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -510,17 +642,29 @@ public final class jfAluguel extends javax.swing.JFrame {
         }
     
      public void enviarAluguel(){
-        controle.getAluguel().setIdLivro(Integer.parseInt(jTiDLivro.getText()));
-        controle.getAluguel().setIdCliente(Integer.parseInt(jTIdClientes.getText()));
+        controle.getAluguel().setIdCliente(Integer.parseInt(jTClientes.getModel().getValueAt(jTClientes.getSelectedRow(),0).toString()));
+        controle.getAluguel().setIdLivro(Integer.parseInt(jTLivros.getModel().getValueAt(jTLivros.getSelectedRow(), 0).toString()));
         controle.getAluguel().setDataAluguel(jTDataAluguel.getText());
         controle.getAluguel().setDataDev(jTDataDev.getText());
     }
     
     public void limparCampos(){
-        jTIdClientes.setText("");
-        jTiDLivro.setText("");
         jTDataDev.setText("");
         jTDataAluguel.setText("");
+    }
+    
+    public void getAtualData(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+        LocalDateTime now = LocalDateTime.now();
+        jTDataAluguel.setText(dtf.format(now));
+    }
+    
+    public boolean verificarSelecao(){
+        if(jTClientes.getSelectionModel().isSelectionEmpty() || jTLivros.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"Clientes ou Livro não foi selecionado! Por favor selecione um de cada para realizar o aluguel","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
 
@@ -531,15 +675,21 @@ public final class jfAluguel extends javax.swing.JFrame {
     private javax.swing.JPanel JPBarrinha;
     private javax.swing.JPanel JPTitulo;
     private javax.swing.JButton jBBusca;
+    private javax.swing.JButton jBBuscaClientes;
+    private javax.swing.JButton jBBuscaLivros;
     private javax.swing.JButton jBClientes;
     private javax.swing.JButton jBEnviar;
     private javax.swing.JButton jBLivros;
     private javax.swing.JButton jBResetar;
+    private javax.swing.JButton jBResetarClientes;
+    private javax.swing.JButton jBResetarLivros;
     private javax.swing.JLabel jLBusca;
+    private javax.swing.JLabel jLBuscaClientes;
+    private javax.swing.JLabel jLBuscaLivros;
+    private javax.swing.JLabel jLCliente;
     private javax.swing.JLabel jLDataAluguel;
     private javax.swing.JLabel jLDataDev;
-    private javax.swing.JLabel jLIdClientes;
-    private javax.swing.JLabel jLIdLivro;
+    private javax.swing.JLabel jLLivro;
     private javax.swing.JLabel jLNomeAba;
     private javax.swing.JLabel jLTituloCad;
     private javax.swing.JLabel jLTituloCad1;
@@ -549,11 +699,15 @@ public final class jfAluguel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jTBusca;
+    private javax.swing.JTextField jTBuscaClientes;
+    private javax.swing.JTextField jTBuscaLivros;
+    private javax.swing.JTable jTClientes;
     private javax.swing.JFormattedTextField jTDataAluguel;
     private javax.swing.JFormattedTextField jTDataDev;
-    private javax.swing.JTextField jTIdClientes;
+    private javax.swing.JTable jTLivros;
     private javax.swing.JTable jTResult;
-    private javax.swing.JTextField jTiDLivro;
     // End of variables declaration//GEN-END:variables
 }

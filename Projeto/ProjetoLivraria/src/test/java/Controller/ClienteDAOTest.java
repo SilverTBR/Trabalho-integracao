@@ -186,25 +186,6 @@ public class ClienteDAOTest{
     }   
     
     
-     /**
-     * Teste com estado passando do limite máximo de caracteres.
-     */
-    
-    @Test
-    public void invalidoEstadoTest(){
-        
-        controle = criaClienteGenerico();
-        controle.getCliente().setEstado("Spp");
-        controle.inserir();
-        controle.consultarTodos();  
-        try{
-            ResultSet rs = controle.getrsdados();           
-            assertEquals(false,rs.next());
-            controle.desconectar();
-          
-        } catch (SQLException ex) {
-            fail("Erro ao executar o teste, gerou uma falha de conexão!");
-        }     
-    }
+
     
 }

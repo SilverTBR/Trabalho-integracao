@@ -159,22 +159,6 @@ public class aluguelDAO extends DAO{
             JOptionPane.showMessageDialog(null, "Campo da data de devolução está invalido!\nPor favor, verifique o campo de data de devolução", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if(Aluguel.getDataAluguel().replaceAll("\\s+","").length() != 10){
-            JOptionPane.showMessageDialog(null, "Campo da data de aluguel está invalido!\nPor favor, verifique o campo de data de aluguel", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if(Aluguel.getIdCliente() == 0 || numberExecao.verNum(Integer.toString(Aluguel.getIdCliente())) || verCliente(Aluguel.getIdCliente())){
-            JOptionPane.showMessageDialog(null, "Campo ID do cliente está invalido!\nPor favor, verifique o campo do ID do cliente", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if(Aluguel.getIdCliente() == 0 || numberExecao.verNum(Integer.toString(Aluguel.getIdLivro())) || verLivro((Aluguel.getIdLivro()))){
-            JOptionPane.showMessageDialog(null, "Campo ID do livro está invalido!\nPor favor, verifique o campo do ID do livro", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if(verificarLivroAlugado()){
-            JOptionPane.showMessageDialog(null,"Livro solicitado já foi alugado!\nPor favor, selecione por outro livro!","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
   
         return true;
     }
@@ -216,5 +200,18 @@ public class aluguelDAO extends DAO{
         }
         return true;
     }
-
+        
+        public TableModel getLivroModel(String busca){
+            controleLivro.conectar();
+            controleLivro.ConsultarSimples(busca);
+            controleLivro.desconectar();
+            return controleLivro.gerarTabelaSimples();
+        }
+        
+        public TableModel getClienteModel(String busca){
+            controleCliente.conectar();
+            controleCliente.consultarSimples(busca);
+            controleCliente.desconectar();
+            return controleCliente.gerarTabelaSimples();
+        }
 }

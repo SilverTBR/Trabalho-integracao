@@ -7,6 +7,8 @@ package Controller;
 import Model.cliente;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 
 
@@ -24,6 +26,7 @@ public class clienteDAO extends DAO{
     private static final String consultarClientes = "SELECT * FROM cliente ORDER BY id_cliente";
     private static final String consultarCount = "SELECT COUNT(id_cliente) FROM cliente";
     private static final String verCliente = "SELECT id_cliente FROM cliente WHERE id_cliente = ?";
+    private static final String consultarClienteSimples = "select id_cliente, CONCAT(nome,' ',sobrenome) \"Nome\" from cliente where concat(nome,' ',sobrenome) ILIKE ?";
 
     
     
@@ -205,6 +208,46 @@ public class clienteDAO extends DAO{
             System.out.println("Erro ao verificar cliente por ID: " + erro);
         }
         return true;
+    }
+    
+     public boolean consultarSimples(String busca) {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(consultarClienteSimples, tipo, concorrencia);
+            pstdados.setString(1, busca);
+            rsdados = pstdados.executeQuery();
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar pesquisa simples: " + erro);
+        }
+        return false;
+    }
+    
+    public TableModel gerarTabelaSimples(){
+        int linha = 0;
+        DefaultTableModel modeloJT = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        try {
+            
+        int qntCol = rsdados.getMetaData().getColumnCount();
+        for(int col = 1; col<= qntCol; col++){
+            modeloJT.addColumn(rsdados.getMetaData().getColumnLabel(col));
+        }
+            while(rsdados != null && rsdados.next()){
+                modeloJT.addRow(new Object[0]);
+                modeloJT.setValueAt(rsdados.getInt("id_cliente"), linha, 0);
+                modeloJT.setValueAt(rsdados.getString("nome"), linha, 1);
+                linha++;
+            }
+        } catch (SQLException erro) {
+            System.out.println("Erro ao gerar tabela simples: "+ erro);
+        }
+        return modeloJT;
     }
     
 

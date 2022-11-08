@@ -6,6 +6,8 @@ package View;
 
 import Controller.clienteDAO;
 import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -52,7 +54,6 @@ public class jfCliente extends javax.swing.JFrame {
         jLNomeAba6 = new javax.swing.JLabel();
         jTCidade = new javax.swing.JTextField();
         jLCidade = new javax.swing.JLabel();
-        jTEstado = new javax.swing.JTextField();
         jLEstado = new javax.swing.JLabel();
         jPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,6 +61,7 @@ public class jfCliente extends javax.swing.JFrame {
         jBLivros = new javax.swing.JButton();
         jBAluguel = new javax.swing.JButton();
         jLFechar = new javax.swing.JLabel();
+        jCEstados = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -175,8 +177,6 @@ public class jfCliente extends javax.swing.JFrame {
         jLCidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLCidade.setText("Cidade:");
 
-        jTEstado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         jLEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLEstado.setText("Estado:");
 
@@ -269,6 +269,14 @@ public class jfCliente extends javax.swing.JFrame {
             }
         });
 
+        jCEstados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCEstados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jCEstados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCEstadosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -296,11 +304,10 @@ public class jfCliente extends javax.swing.JFrame {
                                         .addComponent(jTCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jBEnviar))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(jTBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(jTCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                                     .addGroup(JBackgroundLayout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +315,8 @@ public class jfCliente extends javax.swing.JFrame {
                                                 .addComponent(jLNomeAba6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLNomeAba7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jLCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(jLEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jCEstados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                 .addGap(312, 312, 312)
                                 .addComponent(jLFechar)))
@@ -327,11 +335,12 @@ public class jfCliente extends javax.swing.JFrame {
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLEstado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
@@ -358,7 +367,7 @@ public class jfCliente extends javax.swing.JFrame {
                         .addComponent(jLCPF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -421,6 +430,10 @@ public class jfCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBAluguelActionPerformed
 
+    private void jCEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCEstadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCEstadosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -465,25 +478,17 @@ public class jfCliente extends javax.swing.JFrame {
         jTCPF.setText("");
         jTCidade.setText("");
         jTEndereco.setText("");
-        jTEstado.setText("");
+        jCEstados.setSelectedIndex(0);
         jTNome.setText("");
         jTSobrenome.setText("");
     }
     
-    public void setCampos(String Nome, String Sobrenome, String CPF, String Estado, String Cidade, String Bairro, String Endereco){
-        jTBairro.setText(Bairro);
-        jTCPF.setText(CPF);
-        jTCidade.setText(Cidade);
-        jTEndereco.setText(Endereco);
-        jTEstado.setText(Estado);
-        jTNome.setText(Nome);
-        jTSobrenome.setText(Sobrenome);
-    }
+
     
     public void enviarCliente(){
         controle.getCliente().setNome(jTNome.getText());
         controle.getCliente().setSobrenome(jTSobrenome.getText());
-        controle.getCliente().setEstado(jTEstado.getText());
+        controle.getCliente().setEstado(jCEstados.getSelectedItem().toString());
         controle.getCliente().setEndereco(jTEndereco.getText());
         controle.getCliente().setCidade(jTCidade.getText());
         controle.getCliente().setCPF(jTCPF.getText());
@@ -501,6 +506,7 @@ public class jfCliente extends javax.swing.JFrame {
     private javax.swing.JButton jBAluguel;
     private javax.swing.JButton jBEnviar;
     private javax.swing.JButton jBLivros;
+    private javax.swing.JComboBox<String> jCEstados;
     private javax.swing.JLabel jLCPF;
     private javax.swing.JLabel jLCidade;
     private javax.swing.JLabel jLEstado;
@@ -519,7 +525,6 @@ public class jfCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTCPF;
     private javax.swing.JTextField jTCidade;
     private javax.swing.JTextField jTEndereco;
-    private javax.swing.JTextField jTEstado;
     private javax.swing.JTextField jTNome;
     private javax.swing.JTextField jTSobrenome;
     // End of variables declaration//GEN-END:variables

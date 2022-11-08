@@ -343,6 +343,11 @@ public final class JFAluguel extends javax.swing.JFrame {
         jLBuscaClientes.setText("Nome:");
 
         jTBuscaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTBuscaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTBuscaClientesActionPerformed(evt);
+            }
+        });
 
         jBBuscaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBBuscaClientes.setText("Buscar");
@@ -599,6 +604,10 @@ public final class JFAluguel extends javax.swing.JFrame {
         jTLivros.setModel(controle.getLivroModel("%%"));
         jTBuscaLivros.setText("");
     }//GEN-LAST:event_jBResetarLivrosMouseClicked
+
+    private void jTBuscaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBuscaClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTBuscaClientesActionPerformed
 
     public void atualizarTabelaTudo(){
         controle.consultarTodos();

@@ -17,13 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Guilherme Andreotti
  */
-public class aluguelDAOTest{
+public class AluguelDAOTest{
     
     AluguelDAO controle = new AluguelDAO();
     ClienteDAO controleCliente = new ClienteDAO();
     LivroDAO controleLivro = new LivroDAO();
+    String nome = "Teste Aluguel";
     
-    public aluguelDAOTest() {
+    public AluguelDAOTest() {
     }
     
   
@@ -80,7 +81,7 @@ public class aluguelDAOTest{
         controle.conectar();
         controle.excluir();
         controleLivro.conectar();
-        controleLivro.excluirTodos();  
+        controleLivro.excluir();  
         
         controleLivro.getLivro().setTitulo("Teste Aluguel");
         controleLivro.getLivro().setGenero("Teste");
@@ -107,7 +108,7 @@ public class aluguelDAOTest{
         controle.conectar();
         controle.excluir();
         controle.getAluguel().setIdAluguel(1);
-        controle.getAluguel().setDataAluguel("02-09-2002");
+        controle.getAluguel().setDataAluguel("02-09-2021");
         controle.getAluguel().setDataDev("02-12-2022");
         controle.getAluguel().setIdCliente(idCli);
         controle.getAluguel().setIdLivro(idLiv);
@@ -116,12 +117,16 @@ public class aluguelDAOTest{
         
     }
     
+     /**
+     * Testando o registro normal de um aluguel, com cliente e livro
+     */
+    
     @Test
-    public void registroUnicoTest(){
+    public void registroSimplesTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
-        controle.Inserir();
-        controle.ConsultarTodos();
+        controle.inserir();
+        controle.consultarTodos();
         ResultSet rs = controle.getrsdados();
         try{
           assertEquals(true,rs.next());
@@ -132,34 +137,41 @@ public class aluguelDAOTest{
         }  
     } 
     
+    /**
+     * Teste com data de devolução inválida.
+     */
+    
     @Test
-    public void pesquisaTest(){
+    public void invalidoDataDevTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
-        controle.Inserir();
-        controle.pesquisarAluguel("Teste Aluguel");
-          
+        controle.getAluguel().setDataDev("02-09-202");
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
         try{
-          ResultSet rs = controle.getrsdados();
-          if(rs.first()) {
-            assertEquals("Teste Aluguel",rs.getString("nome"));
-          }
+          assertEquals(false,rs.next());     
           controle.desconectar();
           
         } catch (SQLException ex) {
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
-        }        
+        }  
     }  
     
+     /**
+     * Teste inserindo outra data na data de devolução.
+     */  
+    
     @Test
-    public void invalidoIDTest(){
+    public void AlterandoDataDevTest(){
         
-        controle = criaAluguel(2, criaLivro());
-        controle.Inserir();
-        controle.ConsultarTodos();
+        controle = criaAluguel(criaCliente(), criaLivro());
+        controle.getAluguel().setDataDev("02-09-2022");
+        controle.inserir();
+        controle.consultarTodos();
         ResultSet rs = controle.getrsdados();
         try{
-          assertEquals(false,rs.next());     
+          assertEquals(true,rs.next());     
           controle.desconectar();
           
         } catch (SQLException ex) {
@@ -167,16 +179,20 @@ public class aluguelDAOTest{
         }  
     }
     
+     /**
+     *  Teste alterando a data de aluguel, que já vem definida.
+     */
+    
     @Test
-    public void invalidoDataTest(){
+    public void AlterandoDataAluguelTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
-        controle.getAluguel().setDataAluguel("02-09-202");
-        controle.Inserir();
-        controle.ConsultarTodos();
+        controle.getAluguel().setDataDev("02-12-2021");
+        controle.inserir();
+        controle.consultarTodos();
         ResultSet rs = controle.getrsdados();
         try{
-          assertEquals(false,rs.next());     
+          assertEquals(true,rs.next());     
           controle.desconectar();
           
         } catch (SQLException ex) {
@@ -184,29 +200,85 @@ public class aluguelDAOTest{
         }  
     }  
     
+     /**
+     * Pesquisando na tabela de aluguel.
+     */
+    
     @Test
-    public void doisEmprestimosTest(){
+    public void pesquisaTabelaAluguelTest(){
         
-        int idCli, idLiv = 0;
-        idCli = criaCliente();
-        idLiv = criaLivro();
-        controle = criaAluguel(idCli, idLiv);
-        controle.Inserir();
-        
-        controle.getAluguel().setIdLivro(idLiv);
-        controle.Inserir();
-        controle.ConsultarTodos();
-                
-        controle.consultarCount();          
-        ResultSet rs = controle.getrsdados();
-        
-        try {
-            assertEquals(1, rs.getInt(1));
+        controle = criaAluguel(criaCliente(), criaLivro());
+        controle.inserir();
+       
+        controle.pesquisarAluguel(nome);        
+        try{
+          ResultSet rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals(nome,rs.getString("nome"));
+          }
+          controle.desconectar();
+          
         } catch (SQLException ex) {
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
-        }
-        controle.desconectar();
-         
-    }    
-
+        }        
+    }  
+      /**
+     * Pesquisando na tabela de clientes.
+     */   
+    @Test
+    public void pesquisaTabelaClienteTest(){
+        
+        controle = criaAluguel(criaCliente(), criaLivro());
+        controle.inserir();
+        controle.consultarTodos();
+        
+        controle.getClienteModel(nome);        
+        try{
+          ResultSet rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals(nome,rs.getString("nome"));
+          }
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }        
+    }  
+      /**
+     * Pesquisando na tabela de livros.
+     */   
+    @Test
+    public void pesquisaTabelaLivroTest(){
+        
+        controle = criaAluguel(criaCliente(), criaLivro());
+        controle.inserir();
+        controle.consultarTodos();
+        
+        controle.getLivroModel(nome);        
+        try{
+          ResultSet rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals(nome,rs.getString("nome"));
+          }
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }        
+    }  
+    /**
+     * Registrando algo com ID inexistente. 
+     */
+    @Test
+    public void idInexistenteTest(){
+        
+        controle = criaAluguel(2, criaLivro());
+        controle.inserir();
+  
+        ResultSet rs = controle.getrsdados();
+       
+        assertEquals(null,rs);     
+        controle.desconectar();        
+    }
+   
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Controller.aluguelDAOTest" time="0.003" tests="1" errors="1" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Controller.AluguelDAOTest" time="4.265" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="user.country" value="BR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-18.0.2.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire14933823155379305524\surefirebooter923460358420573548.jar C:\Users\Guilherme Andreotti\AppData\Local\Temp\surefire14933823155379305524 2022-11-08T14-03-42_537-jvmRun1 surefire18076879791245834617tmp surefire_09536860930375573343tmp"/>
+    <property name="sun.java.command" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire9193861025215569532\surefirebooter2136287132722701710.jar C:\Users\Guilherme Andreotti\AppData\Local\Temp\surefire9193861025215569532 2022-11-08T15-50-57_545-jvmRun1 surefire12094101255863958989tmp surefire_06561787339926518885tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="Controller.aluguelDAOTest#invalidoIDTest"/>
+    <property name="test" value="Controller.AluguelDAOTest"/>
     <property name="surefire.test.class.path" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria\target\test-classes;C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria\target\classes;C:\Users\Guilherme Andreotti\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Guilherme Andreotti"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire14933823155379305524\surefirebooter923460358420573548.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire9193861025215569532\surefirebooter2136287132722701710.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.2.1+1-1"/>
@@ -58,9 +58,12 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="Controller.aluguelDAOTest" classname="Controller.aluguelDAOTest" time="0.003">
-    <error message="Controller/clienteDAO" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: Controller/clienteDAO
-Caused by: java.lang.ClassNotFoundException: Controller.clienteDAO
-</error>
-  </testcase>
+  <testcase name="AlterandoDataAluguelTest" classname="Controller.AluguelDAOTest" time="0.505"/>
+  <testcase name="registroUnicoTest" classname="Controller.AluguelDAOTest" time="0.185"/>
+  <testcase name="pesquisaTabelaAluguelTest" classname="Controller.AluguelDAOTest" time="0.307"/>
+  <testcase name="invalidoDataDevTest" classname="Controller.AluguelDAOTest" time="1.833"/>
+  <testcase name="pesquisaTabelaClienteTest" classname="Controller.AluguelDAOTest" time="0.372"/>
+  <testcase name="AlterandoDataDevTest" classname="Controller.AluguelDAOTest" time="0.324"/>
+  <testcase name="idInexistenteTest" classname="Controller.AluguelDAOTest" time="0.123"/>
+  <testcase name="pesquisaTabelaLivroTest" classname="Controller.AluguelDAOTest" time="0.59"/>
 </testsuite>

@@ -140,7 +140,7 @@ public class AluguelDAO extends DAO{
         }
         return modeloJT;
     }
-    
+        
     public boolean verCliente(int id_cliente){
         controleCliente.conectar();
         boolean res = controleCliente.verificarIDCliente(id_cliente);

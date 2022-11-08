@@ -8,7 +8,7 @@ package Model;
  *
  * @author EDUARDO
  */
-public class cliente {
+public class Cliente {
      /**
      * @param idCliente Id do cliente desta classe
      * @param Nome Nome do cliente
@@ -28,7 +28,7 @@ public class cliente {
     protected String Endereco;
     protected String Cidade;
 
-    public cliente(int idCliente, String Nome, String Sobrenome, String CPF, String Estado, String Cidade, String Bairro, String Endereco) {
+    public Cliente(int idCliente, String Nome, String Sobrenome, String CPF, String Estado, String Cidade, String Bairro, String Endereco) {
         this.idCliente = idCliente;
         this.Nome = Nome;
         this.Sobrenome = Sobrenome;
@@ -38,7 +38,7 @@ public class cliente {
         this.Endereco = Endereco;
         this.Cidade = Cidade;
     }
-    public cliente() {
+    public Cliente() {
         
     }
 

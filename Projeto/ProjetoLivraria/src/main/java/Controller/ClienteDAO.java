@@ -1,25 +1,22 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+*/
 package Controller;
 
-import Model.cliente;
+import Model.Cliente;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 
+public class ClienteDAO extends DAO{
 
-/**
- *
- * @author EDUARDO
- */
-public class clienteDAO extends DAO{
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
-    private cliente cliente = new cliente();
+    private Cliente cliente = new Cliente();
+
     private static final String inserirClientes = "INSERT INTO cliente (nome, sobrenome, cpf, estado, cidade, bairro, endereco) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String verCPF = "SELECT cpf FROM cliente WHERE cpf = ?";
     private static final String excluirTudo = "delete from cliente";
@@ -28,16 +25,21 @@ public class clienteDAO extends DAO{
     private static final String verCliente = "SELECT id_cliente FROM cliente WHERE id_cliente = ?";
     private static final String consultarClienteSimples = "select id_cliente, CONCAT(nome,' ',sobrenome) \"Nome\" from cliente where concat(nome,' ',sobrenome) ILIKE ?";
 
+    public Cliente getCliente(){
+        return cliente;
+    }
     
-    
-        public boolean inserir() {
-        
-            if (verificarCampos()) {             
+    public ResultSet getrsdados(){
+        return rsdados;
+    }
+
+    public boolean inserir() {
+        if (verificarCampos()) {             
             try {
                 int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
                 int concorrencia = ResultSet.CONCUR_UPDATABLE;
                 pstdados = connection.prepareStatement(inserirClientes, tipo, concorrencia);
-                
+
                 pstdados.setString(1, cliente.getNome());
                 pstdados.setString(2, cliente.getSobrenome());
                 pstdados.setString(3, cliente.getCPF());
@@ -59,9 +61,8 @@ public class clienteDAO extends DAO{
                 System.out.println("Erro ao inserir: " + erro);
             }
         }
-            return false;
-
-        }
+        return false;
+    }
 
     public boolean excluir() {
         try {
@@ -70,7 +71,7 @@ public class clienteDAO extends DAO{
             pstdados = connection.prepareStatement(excluirTudo, tipo, concorrencia);
             int resposta = pstdados.executeUpdate(); 
             pstdados.close();
-            
+
             if (resposta >= 1) {
                 connection.commit();
                 return true;
@@ -83,7 +84,7 @@ public class clienteDAO extends DAO{
         }
         return false;
     }
-    
+
     public boolean consultarTodos() {
             try {
                 int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
@@ -110,16 +111,8 @@ public class clienteDAO extends DAO{
             }
             return false;
     }
-    
-    public cliente getCliente(){
-        return cliente;
-    }
-    
-    public ResultSet getrsdados(){
-        return rsdados;
-    }
-    
-        public boolean verificarCPF(){
+
+    public boolean verificarCPF(){
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
@@ -135,15 +128,71 @@ public class clienteDAO extends DAO{
         }
         return false;
     }
-        
+    
+    public boolean verificarIDCliente(int ID){
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(verCliente, tipo, concorrencia);
+            pstdados.setInt(1, ID);
+            rsdados = pstdados.executeQuery();
+            if (rsdados.next()) {
+                return false;
+            }
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao verificar cliente por ID: " + erro);
+        }
+        return true;
+    }
+
+    public boolean consultarSimples(String busca) {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(consultarClienteSimples, tipo, concorrencia);
+            pstdados.setString(1, busca);
+            rsdados = pstdados.executeQuery();
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar pesquisa simples: " + erro);
+        }
+        return false;
+    }
+ 
     public boolean verificarLetrasCPF(){
         String temp = getCliente().getCPF();
         temp = temp.replace(".", "");
         temp = temp.replace("-", "");       
         String valor = temp;
-        return numberExecao.verNum(valor);
+        return NumberExecao.verNum(valor);
     }
-        
+    
+    public TableModel gerarTabelaSimples(){
+        int linha = 0;
+        DefaultTableModel modeloJT = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        try {
+            int qntCol = rsdados.getMetaData().getColumnCount();
+            for(int col = 1; col<= qntCol; col++){
+                modeloJT.addColumn(rsdados.getMetaData().getColumnLabel(col));
+            }
+                while(rsdados != null && rsdados.next()){
+                    modeloJT.addRow(new Object[0]);
+                    modeloJT.setValueAt(rsdados.getInt("id_cliente"), linha, 0);
+                    modeloJT.setValueAt(rsdados.getString("nome"), linha, 1);
+                    linha++;
+                }
+        } catch (SQLException erro) {
+            System.out.println("Erro ao gerar tabela simples: "+ erro);
+        }
+        return modeloJT;
+    }
+
     public boolean verificarCampos(){
         if(getCliente().getBairro().isBlank() || getCliente().getBairro().length() > 50){
             JOptionPane.showMessageDialog(null, "Campo do bairro está inválido!\nPor favor, verifique o campo bairro", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
@@ -179,7 +228,7 @@ public class clienteDAO extends DAO{
         }
         return true;
     }
-    
+
     public void zerarCampos(){
         getCliente().setBairro(null);
         getCliente().setCPF(null);
@@ -190,65 +239,5 @@ public class clienteDAO extends DAO{
         getCliente().setNome(null);
         getCliente().setSobrenome(null);
     }
-    
-
-        
-    public boolean verificarIDCliente(int ID){
-        try {
-            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-            int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(verCliente, tipo, concorrencia);
-            pstdados.setInt(1, ID);
-            rsdados = pstdados.executeQuery();
-            if (rsdados.next()) {
-                return false;
-            }
-            return true;
-        } catch (SQLException erro) {
-            System.out.println("Erro ao verificar cliente por ID: " + erro);
-        }
-        return true;
-    }
-    
-     public boolean consultarSimples(String busca) {
-        try {
-            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-            int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(consultarClienteSimples, tipo, concorrencia);
-            pstdados.setString(1, busca);
-            rsdados = pstdados.executeQuery();
-            return true;
-        } catch (SQLException erro) {
-            System.out.println("Erro ao executar pesquisa simples: " + erro);
-        }
-        return false;
-    }
-    
-    public TableModel gerarTabelaSimples(){
-        int linha = 0;
-        DefaultTableModel modeloJT = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-        try {
-            
-        int qntCol = rsdados.getMetaData().getColumnCount();
-        for(int col = 1; col<= qntCol; col++){
-            modeloJT.addColumn(rsdados.getMetaData().getColumnLabel(col));
-        }
-            while(rsdados != null && rsdados.next()){
-                modeloJT.addRow(new Object[0]);
-                modeloJT.setValueAt(rsdados.getInt("id_cliente"), linha, 0);
-                modeloJT.setValueAt(rsdados.getString("nome"), linha, 1);
-                linha++;
-            }
-        } catch (SQLException erro) {
-            System.out.println("Erro ao gerar tabela simples: "+ erro);
-        }
-        return modeloJT;
-    }
-    
 
 }

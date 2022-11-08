@@ -8,14 +8,14 @@ package Model;
  *
  * @author EDUARDO
  */
-public class livro {
+public class Livro {
     /**
-    * @param idLivro id do livro 
-    * @param titulo Titulo do livro
+    * @param idLivro id do Livro 
+    * @param titulo Titulo do Livro
     * @param sobrenomeAutor Sobrenome do autor
-    * @param qntPgns Quantidade de paginas do livro
-    * @param genero Genero do livro
-    * @param editora Editora do livro
+    * @param qntPgns Quantidade de paginas do Livro
+    * @param genero Genero do Livro
+    * @param editora Editora do Livro
     */
       
     protected int idLivro;

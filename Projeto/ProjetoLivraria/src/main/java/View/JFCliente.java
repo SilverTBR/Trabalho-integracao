@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.clienteDAO;
+import Controller.ClienteDAO;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -15,17 +15,16 @@ import javax.swing.UIManager;
  *
  * @author EDUARDO
  */
-public class jfCliente extends javax.swing.JFrame {
+public class JFCliente extends javax.swing.JFrame {
 
-    protected clienteDAO controle = new clienteDAO();
+    protected ClienteDAO controle = new ClienteDAO();
     protected boolean selec = false;
 
-    public jfCliente() {
+    public JFCliente() {
         initComponents();
         controle.conectar();
 
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -341,7 +340,6 @@ public class jfCliente extends javax.swing.JFrame {
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLEstado)
                         .addGap(28, 28, 28)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
                         .addComponent(jLSobrenome)
@@ -367,7 +365,7 @@ public class jfCliente extends javax.swing.JFrame {
                         .addComponent(jLCPF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
             .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -401,7 +399,7 @@ public class jfCliente extends javax.swing.JFrame {
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
         controle.desconectar();
-        jfLivro jfl = new jfLivro();
+        JFLivro jfl = new JFLivro();
         jfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBLivrosMouseClicked
@@ -421,7 +419,7 @@ public class jfCliente extends javax.swing.JFrame {
 
     private void jBAluguelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAluguelMouseClicked
         controle.desconectar();
-        jfAluguel jfa = new jfAluguel();
+        JFAluguel jfa = new JFAluguel();
         jfa.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBAluguelMouseClicked
@@ -434,6 +432,27 @@ public class jfCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCEstadosActionPerformed
 
+    public void limparCampos(){
+        jTBairro.setText("");
+        jTCPF.setText("");
+        jTCidade.setText("");
+        jTEndereco.setText("");
+        jCEstados.setSelectedIndex(0);
+        jTNome.setText("");
+        jTSobrenome.setText("");
+    }
+      
+    public void enviarCliente(){
+        controle.getCliente().setNome(jTNome.getText());
+        controle.getCliente().setSobrenome(jTSobrenome.getText());
+        controle.getCliente().setEstado(jCEstados.getSelectedItem().toString());
+        controle.getCliente().setEndereco(jTEndereco.getText());
+        controle.getCliente().setCidade(jTCidade.getText());
+        controle.getCliente().setCPF(jTCPF.getText());
+        controle.getCliente().setBairro(jTBairro.getText());
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -451,14 +470,42 @@ public class jfCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jfCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -467,34 +514,11 @@ public class jfCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfCliente().setVisible(true);
+                new JFCliente().setVisible(true);
             }
         });
     }
-    
-    
-    public void limparCampos(){
-        jTBairro.setText("");
-        jTCPF.setText("");
-        jTCidade.setText("");
-        jTEndereco.setText("");
-        jCEstados.setSelectedIndex(0);
-        jTNome.setText("");
-        jTSobrenome.setText("");
-    }
-    
 
-    
-    public void enviarCliente(){
-        controle.getCliente().setNome(jTNome.getText());
-        controle.getCliente().setSobrenome(jTSobrenome.getText());
-        controle.getCliente().setEstado(jCEstados.getSelectedItem().toString());
-        controle.getCliente().setEndereco(jTEndereco.getText());
-        controle.getCliente().setCidade(jTCidade.getText());
-        controle.getCliente().setCPF(jTCPF.getText());
-        controle.getCliente().setBairro(jTBairro.getText());
-    }
-    
 
 
     

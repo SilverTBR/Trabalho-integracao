@@ -8,7 +8,7 @@ package Model;
  *
  * @author Eduardo
  */
-public class aluguel {
+public class Aluguel {
     protected int idAluguel;
     protected int idCliente;
     protected int idLivro;

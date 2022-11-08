@@ -19,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class aluguelDAOTest{
     
-    aluguelDAO controle = new aluguelDAO();
-    clienteDAO controleCliente = new clienteDAO();
-    livroDAO controleLivro = new livroDAO();
+    AluguelDAO controle = new AluguelDAO();
+    ClienteDAO controleCliente = new ClienteDAO();
+    LivroDAO controleLivro = new LivroDAO();
     
     public aluguelDAOTest() {
     }
@@ -101,7 +101,7 @@ public class aluguelDAOTest{
         return id;
     }
   
-    public aluguelDAO criaAluguel(int idCli, int idLiv){
+    public AluguelDAO criaAluguel(int idCli, int idLiv){
         
         controle.setCaminhoTeste();
         controle.conectar();
@@ -131,7 +131,26 @@ public class aluguelDAOTest{
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }  
     } 
+    
+    @Test
+    public void pesquisaTest(){
         
+        controle = criaAluguel(criaCliente(), criaLivro());
+        controle.Inserir();
+        controle.pesquisarAluguel("Teste Aluguel");
+          
+        try{
+          ResultSet rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals("Teste Aluguel",rs.getString("nome"));
+          }
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }        
+    }  
+    
     @Test
     public void invalidoIDTest(){
         
@@ -189,24 +208,5 @@ public class aluguelDAOTest{
         controle.desconectar();
          
     }    
-    
-    @Test
-    public void pesquisaTest(){
-        
-        controle = criaAluguel(criaCliente(), criaLivro());
-        controle.Inserir();
-        controle.pesquisarAluguel("Teste Aluguel");
-          
-        try{
-          ResultSet rs = controle.getrsdados();
-          if(rs.first()) {
-            assertEquals("Teste Aluguel",rs.getString("nome"));
-          }
-          controle.desconectar();
-          
-        } catch (SQLException ex) {
-            fail("Erro ao executar o teste, gerou uma falha de conexão!");
-        }        
-    }  
-    
+
 }

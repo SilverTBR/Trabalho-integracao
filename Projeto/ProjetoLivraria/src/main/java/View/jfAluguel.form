@@ -76,11 +76,19 @@
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jTDataAluguel" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
                                               <Component id="jLDataAluguel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLDataDev" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
-                                              <Component id="jTDataDev" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                                              <Component id="jBEnviar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jTDataAluguel" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                                      <Component id="jTDataDev" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                                  <Component id="jBEnviar" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
@@ -103,7 +111,7 @@
                                   <Component id="jBResetarClientes" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                                   <Component id="jBBuscaLivros" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                                  <EmptySpace pref="10" max="32767" attributes="0"/>
                                   <Component id="jBResetarLivros" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -139,7 +147,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel3" pref="257" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
                           <Component id="jLTituloCad1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLBusca" min="-2" max="-2" attributes="0"/>
@@ -159,11 +167,11 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="jTDataAluguel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Component id="jLDataDev" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jTDataDev" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jBEnviar" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">

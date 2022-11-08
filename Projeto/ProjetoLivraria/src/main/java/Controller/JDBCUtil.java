@@ -16,7 +16,7 @@ import java.util.Properties;
  */
 public class JDBCUtil {
     
-        private static String url;
+    private static String url;
     private static String username;
     private static String password;
 

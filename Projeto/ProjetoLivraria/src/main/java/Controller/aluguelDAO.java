@@ -4,18 +4,20 @@
  */
 package Controller;
 
-import Model.aluguel;
+import Model.Aluguel;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class aluguelDAO extends DAO{
-    clienteDAO controleCliente = new clienteDAO();
-    livroDAO controleLivro = new livroDAO();
-    aluguel Aluguel = new aluguel();
+public class AluguelDAO extends DAO{
+    
+    ClienteDAO controleCliente = new ClienteDAO();
+    LivroDAO controleLivro = new LivroDAO();
+    Aluguel Aluguel = new Aluguel();
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
+    
     private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao) VALUES (?, ?, ?, ?)";
     private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and cliente.nome like ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
@@ -23,7 +25,15 @@ public class aluguelDAO extends DAO{
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
     
-    public boolean Inserir() {
+    public Aluguel getAluguel(){
+        return Aluguel;
+    }
+    
+    public ResultSet getrsdados(){
+        return rsdados;
+    }
+    
+    public boolean inserir() {
         if(verificarCampos()){
             try {
                 int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
@@ -46,7 +56,7 @@ public class aluguelDAO extends DAO{
                 System.out.println("Erro ao inserir: " + erro);
             }
         }
-                return false;
+        return false;
     }
     
       public boolean excluir() {
@@ -70,7 +80,7 @@ public class aluguelDAO extends DAO{
         return false;
     }  
       
-    public boolean ConsultarTodos() {
+    public boolean consultarTodos() {
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
@@ -144,25 +154,7 @@ public class aluguelDAO extends DAO{
         controleLivro.desconectar();
         return res;
     }
-    
-    public aluguel getAluguel(){
-        return Aluguel;
-    }
-    public ResultSet getrsdados(){
-        return rsdados;
-    }
-    
-        public boolean verificarCampos(){
-
-        if(Aluguel.getDataDev().replaceAll("\\s+","").length() != 10){
-            
-            JOptionPane.showMessageDialog(null, "Campo da data de devolução está invalido!\nPor favor, verifique o campo de data de devolução", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-  
-        return true;
-    }
-        
+                
     public boolean pesquisarAluguel(String busca) {
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
@@ -177,21 +169,23 @@ public class aluguelDAO extends DAO{
         return false;
     }
     
-    public TableModel getPesquisaModel(String busca){
-        conectar();
-        pesquisarAluguel(busca);
-        controleLivro.desconectar();
-        return gerarTabela();
-    }
+     public boolean verificarCampos(){
+        if(Aluguel.getDataDev().replaceAll("\\s+","").length() != 10){
+            JOptionPane.showMessageDialog(null, "Campo da data de devolução está invalido!\n"
+            + "Por favor, verifique o campo de data de devolução", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }   
     
-        public boolean verificarLivroAlugado(){
+    public boolean verificarLivroAlugado(){
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
             pstdados = connection.prepareStatement(verLivroAlugado, tipo, concorrencia);
             pstdados.setInt(1, Aluguel.getIdLivro());
             rsdados = pstdados.executeQuery();
-            if (rsdados.next()) {
+            if(rsdados.next()) {
                 return true;
             }
             return false;
@@ -200,18 +194,26 @@ public class aluguelDAO extends DAO{
         }
         return true;
     }
-        
-        public TableModel getLivroModel(String busca){
-            controleLivro.conectar();
-            controleLivro.ConsultarSimples(busca);
-            controleLivro.desconectar();
-            return controleLivro.gerarTabelaSimples();
-        }
-        
-        public TableModel getClienteModel(String busca){
-            controleCliente.conectar();
-            controleCliente.consultarSimples(busca);
-            controleCliente.desconectar();
-            return controleCliente.gerarTabelaSimples();
-        }
+    
+    public TableModel getPesquisaModel(String busca){
+        conectar();
+        pesquisarAluguel(busca);
+        controleLivro.desconectar();
+        return gerarTabela();
+    }   
+    
+    public TableModel getLivroModel(String busca){
+        controleLivro.conectar();
+        controleLivro.ConsultarSimples(busca);
+        controleLivro.desconectar();
+        return controleLivro.gerarTabelaSimples();
+    }
+
+    public TableModel getClienteModel(String busca){
+        controleCliente.conectar();
+        controleCliente.consultarSimples(busca);
+        controleCliente.desconectar();
+        return controleCliente.gerarTabelaSimples();
+    }
+    
 }

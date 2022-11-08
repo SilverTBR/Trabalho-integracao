@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.aluguelDAO;
+import Controller.AluguelDAO;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.time.format.DateTimeFormatter;  
@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  *
  * @author EDUARDO
  */
-public final class jfAluguel extends javax.swing.JFrame {
+public final class JFAluguel extends javax.swing.JFrame {
 
-    protected aluguelDAO controle = new aluguelDAO();
+    protected AluguelDAO controle = new AluguelDAO();
     protected boolean selec = false;
 
-    public jfAluguel() {
+    public JFAluguel() {
         initComponents();
         controle.conectar();
         atualizarTabelaTudo();
@@ -407,11 +407,16 @@ public final class jfAluguel extends javax.swing.JFrame {
                                                 .addComponent(jTBuscaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTDataAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLDataAluguel)
                                             .addComponent(jLDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jBEnviar))
+                                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jTDataAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jTDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(JBackgroundLayout.createSequentialGroup()
+                                                .addGap(14, 14, 14)
+                                                .addComponent(jBEnviar)))
                                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                                 .addComponent(jLBuscaLivros)
@@ -427,7 +432,7 @@ public final class jfAluguel extends javax.swing.JFrame {
                                 .addComponent(jBResetarClientes)
                                 .addGap(124, 124, 124)
                                 .addComponent(jBBuscaLivros)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                                 .addComponent(jBResetarLivros)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,7 +459,7 @@ public final class jfAluguel extends javax.swing.JFrame {
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 12, Short.MAX_VALUE)
                         .addComponent(jLTituloCad1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLBusca)
@@ -472,11 +477,11 @@ public final class jfAluguel extends javax.swing.JFrame {
                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addComponent(jTDataAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(12, 12, 12)
                                 .addComponent(jLDataDev)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTDataDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(28, 28, 28)
                                 .addComponent(jBEnviar))
                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -528,7 +533,7 @@ public final class jfAluguel extends javax.swing.JFrame {
     private void jBEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEnviarMouseClicked
         if(verificarSelecao()){
             enviarAluguel();
-            if(controle.Inserir()){
+            if(controle.inserir()){
                 limparCampos();            
                 jTClientes.setModel(controle.getClienteModel("%%"));
                 jTLivros.setModel(controle.getLivroModel("%%"));
@@ -539,7 +544,7 @@ public final class jfAluguel extends javax.swing.JFrame {
 
     private void jBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLivrosMouseClicked
         controle.desconectar();
-        jfLivro jfl = new jfLivro();
+        JFLivro jfl = new JFLivro();
         jfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBLivrosMouseClicked
@@ -558,7 +563,7 @@ public final class jfAluguel extends javax.swing.JFrame {
 
     private void jBClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBClientesMouseClicked
         controle.desconectar();
-        jfCliente jfc = new jfCliente();
+        JFCliente jfc = new JFCliente();
         jfc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBClientesMouseClicked
@@ -595,51 +600,14 @@ public final class jfAluguel extends javax.swing.JFrame {
         jTBuscaLivros.setText("");
     }//GEN-LAST:event_jBResetarLivrosMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jfAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jfAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jfAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jfAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new jfAluguel().setVisible(true);
-            }
-        });
-    }
-        public void atualizarTabelaTudo(){
-        controle.ConsultarTodos();
+    public void atualizarTabelaTudo(){
+        controle.consultarTodos();
         jTResult.setModel(controle.gerarTabela());
     }
         
-        public void pesquisarGerarTabela(){
-            jTResult.setModel(controle.getPesquisaModel("%"+jTBusca.getText()+"%"));
-        }
+    public void pesquisarGerarTabela(){
+        jTResult.setModel(controle.getPesquisaModel("%"+jTBusca.getText()+"%"));
+    }
     
      public void enviarAluguel(){
         controle.getAluguel().setIdCliente(Integer.parseInt(jTClientes.getModel().getValueAt(jTClientes.getSelectedRow(),0).toString()));
@@ -666,6 +634,49 @@ public final class jfAluguel extends javax.swing.JFrame {
         }
         return true;
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JFAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JFAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JFAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JFAluguel().setVisible(true);
+            }
+        });
+    }
+
 
 
     

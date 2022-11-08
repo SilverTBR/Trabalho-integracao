@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class LivroDAOTest {
     
-    livroDAO controle = new livroDAO();
-    aluguelDAO aluguel = new aluguelDAO();
+    LivroDAO controle = new LivroDAO();
+    AluguelDAO aluguel = new AluguelDAO();
     
     public LivroDAOTest() {
     }
@@ -41,14 +41,14 @@ public class LivroDAOTest {
     public void tearDown() {
     }
     
-    public livroDAO criaLivroGenerico()
+    public LivroDAO criaLivroGenerico()
     {
         
         controle.setCaminhoTeste();
         controle.conectar();
         aluguel.conectar();
         aluguel.excluir();
-        controle.excluirTodos();  
+        controle.excluir();  
         
         controle.getLivro().setTitulo("Teste");
         controle.getLivro().setGenero("Teste");
@@ -92,7 +92,7 @@ public class LivroDAOTest {
         controle.conectar();
         aluguel.conectar();
         aluguel.excluir();
-        controle.excluirTodos();
+        controle.excluir();
              
         try{    
             controle.getLivro().setTitulo("Teste");

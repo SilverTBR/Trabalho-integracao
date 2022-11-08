@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Model.livro;
+import Model.Livro;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,10 +16,12 @@ import javax.swing.table.TableModel;
  *
  * @author EDUARDO
  */
-public class livroDAO extends DAO{
+public class LivroDAO extends DAO{
+    
     private PreparedStatement pstdados = null;
     private ResultSet rsdados = null;
-    livro livro = new livro();
+    Livro livro = new Livro();
+    
     private static final String inserirLivros = "INSERT INTO livro (titulo, nome_autor, sobrenome_autor, paginas, genero, editora) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String excluirTudo = "delete from livro";  
     private static final String consultarLivro = "SELECT * FROM livro ORDER BY id_livro";
@@ -27,6 +29,13 @@ public class livroDAO extends DAO{
     private static final String verLivro = "SELECT id_livro FROM livro WHERE id_livro = ?";
     private static final String consultarLivrosSimples = "select id_livro, titulo from livro where titulo ILIKE ? and id_livro not in (select id_livro from aluguel)";
 
+    public Livro getLivro(){
+        return livro;
+    }
+    
+    public ResultSet getrsdados(){
+        return rsdados;
+    }
     
     public boolean inserir() {
         if(verificarCampos()){
@@ -57,7 +66,7 @@ public class livroDAO extends DAO{
         return false;
     }
     
-    public boolean excluirTodos() {
+    public boolean excluir() {
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
@@ -93,27 +102,20 @@ public class livroDAO extends DAO{
             return false;
     }
     
-        public boolean consultarCount() {
-            try {
-                int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-                int concorrencia = ResultSet.CONCUR_UPDATABLE;
-                pstdados = connection.prepareStatement(consultarCount, tipo, concorrencia);
-                rsdados = pstdados.executeQuery();
-                rsdados.next();
-                return true;
-            } catch (SQLException erro) {
-                System.out.println("Erro ao executar consulta: " + erro);
-            }
-            return false;
+    public boolean consultarCount() {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(consultarCount, tipo, concorrencia);
+            rsdados = pstdados.executeQuery();
+            rsdados.next();
+            return true;
+        } catch (SQLException erro) {
+            System.out.println("Erro ao executar consulta: " + erro);
+        }
+        return false;
     }
-    
-    public livro getLivro(){
-        return livro;
-    }
-    public ResultSet getrsdados(){
-        return rsdados;
-    }
-    
+        
     public boolean verificarCampos(){
         if(getLivro().getEditora().isBlank() || getLivro().getEditora().length() > 50){
             JOptionPane.showMessageDialog(null, "Campo do editor está invalido!\nPor favor, preencha o campo editor", "FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);

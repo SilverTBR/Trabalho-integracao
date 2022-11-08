@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ClienteDAOTest{
     
-    clienteDAO controle = new clienteDAO();
-    aluguelDAO aluguel = new aluguelDAO();
+    ClienteDAO controle = new ClienteDAO();
+    AluguelDAO aluguel = new AluguelDAO();
     
     public ClienteDAOTest() {
     }
@@ -40,7 +40,7 @@ public class ClienteDAOTest{
     }
 
 
-    public clienteDAO criaClienteGenerico(){   
+    public ClienteDAO criaClienteGenerico(){   
         
         controle.setCaminhoTeste();
         controle.conectar();
@@ -184,8 +184,5 @@ public class ClienteDAOTest{
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }     
     }   
-    
-    
-
-    
+     
 }

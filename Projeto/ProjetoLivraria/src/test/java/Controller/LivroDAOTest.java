@@ -65,7 +65,7 @@ public class LivroDAOTest {
      */
     
     @Test
-    public void RegistroUnicoTest(){
+    public void registroUnicoTest(){
           
         controle = criaLivroGenerico();
         controle.inserir();

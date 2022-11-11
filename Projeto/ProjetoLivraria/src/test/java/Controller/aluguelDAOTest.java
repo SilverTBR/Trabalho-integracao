@@ -163,7 +163,7 @@ public class AluguelDAOTest{
      */  
     
     @Test
-    public void AlterandoDataDevTest(){
+    public void alterandoDataDevTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
         controle.getAluguel().setDataDev("02-09-2022");
@@ -184,7 +184,7 @@ public class AluguelDAOTest{
      */
     
     @Test
-    public void AlterandoDataAluguelTest(){
+    public void alterandoDataAluguelTest(){
         
         controle = criaAluguel(criaCliente(), criaLivro());
         controle.getAluguel().setDataDev("02-12-2021");

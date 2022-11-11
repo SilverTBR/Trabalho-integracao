@@ -5,7 +5,9 @@
 package View;
 
 import Controller.LivroDAO;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.UIManager;
 
 /**
  *
@@ -55,6 +57,7 @@ public class JFLivro extends javax.swing.JFrame {
         JPBarrinha = new javax.swing.JPanel();
         jBClientes = new javax.swing.JButton();
         jBAluguel = new javax.swing.JButton();
+        jLFechar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -242,6 +245,21 @@ public class JFLivro extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLFechar.setBackground(new java.awt.Color(245, 244, 244));
+        jLFechar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLFechar.setText("X");
+        jLFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLFecharMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLFecharMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLFecharMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -249,7 +267,6 @@ public class JFLivro extends javax.swing.JFrame {
             .addGroup(JBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JBackgroundLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -280,13 +297,18 @@ public class JFLivro extends javax.swing.JFrame {
                             .addGroup(JBackgroundLayout.createSequentialGroup()
                                 .addComponent(jLQntPgs, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(JPTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JPTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLFechar)
+                        .addGap(14, 14, 14)))
                 .addContainerGap())
         );
         JBackgroundLayout.setVerticalGroup(
             JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JBackgroundLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addComponent(jLFechar)
+                .addGap(3, 3, 3)
                 .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLTituloCad)
@@ -374,6 +396,19 @@ public class JFLivro extends javax.swing.JFrame {
     private void jBAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAluguelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBAluguelActionPerformed
+
+    private void jLFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLFecharMouseClicked
+        controle.desconectar();
+        System.exit(0);
+    }//GEN-LAST:event_jLFecharMouseClicked
+
+    private void jLFecharMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLFecharMouseEntered
+        jLFechar.setForeground(Color.red);
+    }//GEN-LAST:event_jLFecharMouseEntered
+
+    private void jLFecharMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLFecharMouseExited
+        jLFechar.setForeground(UIManager.getColor("control"));
+    }//GEN-LAST:event_jLFecharMouseExited
 
     public void limparCampos(){
         jTQntPgs.setText("");
@@ -484,6 +519,7 @@ public class JFLivro extends javax.swing.JFrame {
     private javax.swing.JButton jBEnviar;
     private javax.swing.JLabel jLCidade;
     private javax.swing.JLabel jLEditor;
+    private javax.swing.JLabel jLFechar;
     private javax.swing.JLabel jLGenero;
     private javax.swing.JLabel jLNome;
     private javax.swing.JLabel jLNomeAba;

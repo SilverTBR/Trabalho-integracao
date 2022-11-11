@@ -24,6 +24,8 @@ public class AluguelDAO extends DAO{
     private static final String verLivroAlugado = "SELECT id_aluguel FROM aluguel, livro where aluguel.id_livro = ?";
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
+    private static final String devolucaoAluguel = "DELETE FROM aluguel WHERE id_aluguel = ?";
+    private static final String renovarAluguel = "UPDATE aluguel SET data_devolucao = ? WHERE id_emprestimo = ?";
     
     public Aluguel getAluguel(){
         return Aluguel;
@@ -78,7 +80,9 @@ public class AluguelDAO extends DAO{
             System.out.println("Erro na execução da exclusão: " + erro);
         }
         return false;
-    }  
+    }
+      
+      
       
     public boolean consultarTodos() {
         try {
@@ -106,6 +110,7 @@ public class AluguelDAO extends DAO{
             }
             return false;
     }
+    
     
     public TableModel gerarTabela(){
         int linha = 0;

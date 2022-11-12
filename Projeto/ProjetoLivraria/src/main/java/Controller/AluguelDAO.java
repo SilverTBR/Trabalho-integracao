@@ -25,8 +25,7 @@ public class AluguelDAO extends DAO{
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
     private static final String devolucaoAluguel = "DELETE FROM aluguel WHERE id_aluguel = ?";
-    private static final String renovarAluguel = "UPDATE aluguel SET data_devolucao = ? WHERE id_emprestimo = ?";
-    
+
     public Aluguel getAluguel(){
         return Aluguel;
     }
@@ -66,6 +65,28 @@ public class AluguelDAO extends DAO{
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
             pstdados = connection.prepareStatement(excluirTudo, tipo, concorrencia);
+            int resposta = pstdados.executeUpdate(); 
+            pstdados.close();
+            
+            if (resposta >= 1) {
+                connection.commit();
+                return true;
+            } else {
+                connection.rollback();
+                return false;
+            }
+        } catch (SQLException erro) {
+            System.out.println("Erro na execução da exclusão: " + erro);
+        }
+        return false;
+    }
+      
+    public boolean devolucao(int id) {
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            pstdados = connection.prepareStatement(devolucaoAluguel, tipo, concorrencia);
+            pstdados.setInt(1, id);
             int resposta = pstdados.executeUpdate(); 
             pstdados.close();
             
@@ -220,5 +241,7 @@ public class AluguelDAO extends DAO{
         controleCliente.desconectar();
         return controleCliente.gerarTabelaSimples();
     }
+    
+
     
 }

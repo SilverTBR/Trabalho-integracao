@@ -76,6 +76,8 @@ public final class JFAluguel extends javax.swing.JFrame {
         jBBuscaLivros = new javax.swing.JButton();
         jBResetarLivros = new javax.swing.JButton();
         jLFechar = new javax.swing.JLabel();
+        jBDevolucao = new javax.swing.JButton();
+        jBRenovar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -402,6 +404,22 @@ public final class JFAluguel extends javax.swing.JFrame {
             }
         });
 
+        jBDevolucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBDevolucao.setText("Devolução");
+        jBDevolucao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBDevolucaoMouseClicked(evt);
+            }
+        });
+
+        jBRenovar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBRenovar.setText("Renovar");
+        jBRenovar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBRenovarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout JBackgroundLayout = new javax.swing.GroupLayout(JBackground);
         JBackground.setLayout(JBackgroundLayout);
         JBackgroundLayout.setHorizontalGroup(
@@ -455,7 +473,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                                         .addComponent(jBResetarClientes)
                                         .addGap(124, 124, 124)
                                         .addComponent(jBBuscaLivros)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                         .addComponent(jBResetarLivros)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,7 +486,11 @@ public final class JFAluguel extends javax.swing.JFrame {
                                         .addGroup(JBackgroundLayout.createSequentialGroup()
                                             .addComponent(jBBusca)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jBResetar))
+                                            .addComponent(jBResetar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBDevolucao)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBRenovar))
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addComponent(JPTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -486,7 +508,7 @@ public final class JFAluguel extends javax.swing.JFrame {
                 .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLTituloCad1)
@@ -497,7 +519,9 @@ public final class JFAluguel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBBusca)
-                            .addComponent(jBResetar))
+                            .addComponent(jBResetar)
+                            .addComponent(jBDevolucao)
+                            .addComponent(jBRenovar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JBackgroundLayout.createSequentialGroup()
@@ -552,7 +576,7 @@ public final class JFAluguel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(JBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 472, Short.MAX_VALUE)
         );
 
         pack();
@@ -646,6 +670,25 @@ public final class JFAluguel extends javax.swing.JFrame {
         jLFechar.setForeground(UIManager.getColor("control"));
     }//GEN-LAST:event_jLFecharMouseExited
 
+    private void jBDevolucaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBDevolucaoMouseClicked
+        if(jTResult.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"Nenhum aluguel foi selecionado! Por favor selecione um dos alugueis para prosseguir!","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            controle.devolucao(Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(), 0).toString()));
+            atualizarTabelaTudo();
+            jTLivros.setModel(controle.getLivroModel("%%"));
+        }
+        
+    }//GEN-LAST:event_jBDevolucaoMouseClicked
+
+    private void jBRenovarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBRenovarMouseClicked
+        if(jTResult.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"Nenhum aluguel foi selecionado! Por favor selecione um dos alugueis para prosseguir!","FALHA AO SALVAR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            renovar();
+        }
+    }//GEN-LAST:event_jBRenovarMouseClicked
+
     public void atualizarTabelaTudo(){
         controle.consultarTodos();
         jTResult.setModel(controle.gerarTabela());
@@ -681,6 +724,18 @@ public final class JFAluguel extends javax.swing.JFrame {
         return true;
     }
     
+    public void renovar (){
+        JFRenovar renovacao = new JFRenovar();
+        renovacao.setVisible(true);
+        renovacao.setCampos(Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),1).toString()), Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),4).toString()), jTResult.getModel().getValueAt(jTResult.getSelectedRow(),7).toString(), jTResult.getModel().getValueAt(jTResult.getSelectedRow(),6).toString(), Integer.parseInt(jTResult.getModel().getValueAt(jTResult.getSelectedRow(),0).toString()));
+        renovacao.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent){
+            atualizarTabelaTudo();
+        }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -714,6 +769,30 @@ public final class JFAluguel extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -735,8 +814,10 @@ public final class JFAluguel extends javax.swing.JFrame {
     private javax.swing.JButton jBBuscaClientes;
     private javax.swing.JButton jBBuscaLivros;
     private javax.swing.JButton jBClientes;
+    private javax.swing.JButton jBDevolucao;
     private javax.swing.JButton jBEnviar;
     private javax.swing.JButton jBLivros;
+    private javax.swing.JButton jBRenovar;
     private javax.swing.JButton jBResetar;
     private javax.swing.JButton jBResetarClientes;
     private javax.swing.JButton jBResetarLivros;

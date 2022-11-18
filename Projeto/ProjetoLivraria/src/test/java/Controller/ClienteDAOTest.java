@@ -76,6 +76,27 @@ public class ClienteDAOTest{
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }          
     }
+ 
+     /**
+     * Teste com cadastro dando sucesso.
+     */   
+    @Test
+    public void registroUnico2Test(){
+        
+        controle = criaClienteGenerico();
+        controle.getCliente().setEstado("PR");
+        controle.getCliente().setEndereco("End. Teste 2");
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        try{
+          assertEquals(true,rs.next());     
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }          
+    }
     
      /**
      * Teste com cadastro duplo dando sucesso.

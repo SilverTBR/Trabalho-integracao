@@ -1,11 +1,9 @@
 
 package Controller;
 
+import View.JFAluguel;
 import java.sql.ResultSet;
-import java.sql.RowId;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,46 +41,30 @@ public class AluguelDAOTest{
     @AfterEach
     public void tearDown() {
     }
+    
 
-    public int criaCliente(){
-        
-        int id = 0;
+    void setCaminhosCliente(){
         controleCliente.setCaminhoTeste();
         controle.conectar();
         controle.excluir();
         controleCliente.conectar();
-        controleCliente.excluir();     
-        controleCliente.getCliente().setNome("Teste Aluguel");
-        controleCliente.getCliente().setSobrenome("Teste");
-        controleCliente.getCliente().setEstado("SP");
-        controleCliente.getCliente().setEndereco("End. Teste");
-        controleCliente.getCliente().setCidade("Testalopis");
-        controleCliente.getCliente().setCPF("121.818.818-81");
-        controleCliente.getCliente().setBairro("Bairro Teste"); 
-        
-        controleCliente.inserir();
-        controleCliente.consultarTodos();
-        
-        ResultSet rs = controleCliente.getrsdados();
-        try{
-            if(rs.first()) {
-               id = rs.getInt("id_cliente");
-            }
-          
-        } catch (SQLException ex) {
-        }  
-        return id;
+        controleCliente.excluir();  
     }
     
-    public int criaLivro(){
-        
-        int id = 0;
+    void setCaminhosLivro(){
         controleLivro.setCaminhoTeste();
         controle.conectar();
         controle.excluir();
         controleLivro.conectar();
-        controleLivro.excluir();  
-        
+    }
+    
+    void setCaminhosAluguel(){
+        controle.setCaminhoTeste();
+        controle.conectar();
+        controle.excluir();
+    }
+    
+    public int criaLivro(int opt){
         controleLivro.getLivro().setTitulo("Teste Aluguel");
         controleLivro.getLivro().setGenero("Teste");
         controleLivro.getLivro().setEditora("Teste");
@@ -91,22 +73,50 @@ public class AluguelDAOTest{
         controleLivro.getLivro().setQntPgns(50);
         controleLivro.inserir();
         controleLivro.consultarTodos();
-        ResultSet rs = controleLivro.getrsdados();
-        try{
-            if(rs.first()) {
-               id = rs.getInt("id_livro");
-            }
-          
-        } catch (SQLException ex) {
-        }  
-        return id;
+        
+        return retornaId(controleLivro.getrsdados(), opt, "id_livro");
     }
+    
+    public int criaCliente(int opt){
+        controleCliente.getCliente().setNome("Teste Aluguel");
+        controleCliente.getCliente().setSobrenome("Teste");
+        controleCliente.getCliente().setEstado("SP");
+        controleCliente.getCliente().setEndereco("End. Teste");
+        controleCliente.getCliente().setCidade("Testalopis");
+        if(opt == 2){controleCliente.getCliente().setCPF("121.818.818-82");}
+        controleCliente.getCliente().setCPF("121.818.818-81");
+        controleCliente.getCliente().setBairro("Bairro Teste"); 
+    
+        controleCliente.inserir();
+        controleCliente.consultarTodos();
+        
+        return retornaId(controleCliente.getrsdados(), opt, "id_cliente");
+    }
+    
+    int retornaId(ResultSet rs, int opt, String nome){
+        int id = 0;
+        
+        if(opt == 1){
+            try{
+                if(rs.first()) {
+                   id = rs.getInt(nome);
+                }
+            } catch (SQLException ex) {
+            }  
+        }else{
+            try{
+                if(rs.last()) {
+                   id = rs.getInt(nome);
+                }
+            } catch (SQLException ex) {
+            }  
+        }
+        return id;   
+    }
+    
   
     public AluguelDAO criaAluguel(int idCli, int idLiv){
         
-        controle.setCaminhoTeste();
-        controle.conectar();
-        controle.excluir();
         controle.getAluguel().setIdAluguel(1);
         controle.getAluguel().setDataAluguel("02-09-2021");
         controle.getAluguel().setDataDev("02-12-2022");
@@ -118,13 +128,47 @@ public class AluguelDAOTest{
     }
     
      /**
-     * Testando o registro normal de um aluguel, com cliente e livro
+     * Testando o registro normal de um aluguel, com cliente e livro HAPPY PATH
      */
     
     @Test
-    public void registroSimplesTest(){
+    public void registroSimplesTest(){    
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        int livro = criaLivro(1);
+        int cliente = criaCliente(1);
+        
+        controle = criaAluguel(cliente, livro);
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        try{
+          assertEquals(true,rs.next());
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }  
+    } 
+    
+         /**
+     * Testando o registro normal de um aluguel, com cliente e livro alguns dados diferentes HAPPY PATH
+     */
+    
+    @Test
+    public void registroSimples2Test(){    
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        
+        int livro = criaLivro(1);
+        int cliente = criaCliente(1);
+        controleCliente.getCliente().setNome("Teste Aluguel 2");
+        controleCliente.getCliente().setBairro("Bairro Teste 2"); 
+        
+        controle = criaAluguel(cliente, livro);
         controle.inserir();
         controle.consultarTodos();
         ResultSet rs = controle.getrsdados();
@@ -138,13 +182,109 @@ public class AluguelDAOTest{
     } 
     
     /**
+     * Testando o registro normal de um aluguel, com cliente e livro alguns dados diferentes HAPPY PATH
+     */
+    
+    @Test
+    public void registroSimples3Test(){    
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        
+        int livro = criaLivro(1);
+        controleLivro.getLivro().setSobrenomeAutor("Teste 2");
+        controleLivro.getLivro().setQntPgns(30);
+        int cliente = criaCliente(1);
+        
+        controle = criaAluguel(cliente, livro);
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        try{
+          assertEquals(true,rs.next());
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }  
+    }     
+    /**
+     * Testando o registro normal duplo de um aluguel, com cliente e livro HAPPY PATH
+     */
+    
+    @Test
+    public void registroDuploTest(){     
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        
+        int cliente = criaCliente(1);
+        int livro = criaLivro(1);
+        int livro2 = criaLivro(2);
+        
+        try{
+            controle = criaAluguel(cliente, livro);
+            controle.inserir();
+
+            controle = criaAluguel(cliente, livro2);
+            controle.inserir();
+
+            controle.consultarCount();
+            ResultSet rs = controle.getrsdados();
+
+            assertEquals(2, rs.getInt(1));
+            controle.desconectar();
+            
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }  
+    } 
+    
+     /**
+     * Testando o registro normal duplo de um aluguel com clientes diferentes, com cliente e livro HAPPY PATH
+     */
+    
+    @Test
+    public void registroDuploClientesDiferentesTest(){   
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        
+        int cliente = criaCliente(1);
+        int cliente2 = criaCliente(2);
+        
+        int livro = criaLivro(1);
+        int livro2 = criaLivro(2);
+        
+        try{
+            controle = criaAluguel(cliente, livro);
+            controle.inserir();
+
+            controle = criaAluguel(cliente2, livro2);
+            controle.inserir();
+
+            controle.consultarCount();
+            ResultSet rs = controle.getrsdados();
+
+            assertEquals(2, rs.getInt(1));
+            controle.desconectar();
+            
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }  
+    } 
+    
+    /**
      * Teste com data de devolução inválida.
      */
     
     @Test
-    public void invalidoDataDevTest(){
+    public void invalidoDataDevTest(){ 
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.getAluguel().setDataDev("02-09-202");
         controle.inserir();
         controle.consultarTodos();
@@ -159,13 +299,16 @@ public class AluguelDAOTest{
     }  
     
      /**
-     * Teste inserindo outra data na data de devolução.
+     * Teste inserindo outra data na data de devolução HAPPY PATH.
      */  
     
     @Test
-    public void alterandoDataDevTest(){
+    public void alterandoDataDevTest(){      
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.getAluguel().setDataDev("02-09-2022");
         controle.inserir();
         controle.consultarTodos();
@@ -180,13 +323,16 @@ public class AluguelDAOTest{
     }
     
      /**
-     *  Teste alterando a data de aluguel, que já vem definida.
+     *  Teste alterando a data de aluguel, que já vem definida HAPPY PATH.
      */
     
     @Test
-    public void alterandoDataAluguelTest(){
+    public void alterandoDataAluguelTest(){     
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.getAluguel().setDataDev("02-12-2021");
         controle.inserir();
         controle.consultarTodos();
@@ -201,13 +347,16 @@ public class AluguelDAOTest{
     }  
     
      /**
-     * Pesquisando na tabela de aluguel.
+     * Pesquisando na tabela de aluguel HAPPY PATH.
      */
     
     @Test
     public void pesquisaTabelaAluguelTest(){
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
        
         controle.pesquisarAluguel(nome);        
@@ -221,14 +370,18 @@ public class AluguelDAOTest{
         } catch (SQLException ex) {
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }        
-    }  
+    } 
+     
       /**
-     * Pesquisando na tabela de clientes.
+     * Pesquisando na tabela de clientes HAPPY PATH.
      */   
     @Test
     public void pesquisaTabelaClienteTest(){
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
         controle.consultarTodos();
         
@@ -244,13 +397,17 @@ public class AluguelDAOTest{
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }        
     }  
+    
       /**
-     * Pesquisando na tabela de livros.
+     * Pesquisando na tabela de livros HAPPY PATH. 
      */   
     @Test
     public void pesquisaTabelaLivroTest(){
         
-        controle = criaAluguel(criaCliente(), criaLivro());
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
         controle.consultarTodos();
         
@@ -272,7 +429,10 @@ public class AluguelDAOTest{
     @Test
     public void idInexistenteTest(){
         
-        controle = criaAluguel(2, criaLivro());
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        controle = criaAluguel(2, criaLivro(1));
         controle.inserir();
   
         ResultSet rs = controle.getrsdados();
@@ -280,5 +440,64 @@ public class AluguelDAOTest{
         assertEquals(null,rs);     
         controle.desconectar();        
     }
-   
+    
+     /**
+     * Devolução com só um cadastro, HAPPY PATH.
+     */
+    @Test
+    public void DevolucaoUnicaTest(){
+        
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        
+        int livro = criaLivro(1);
+        int cliente = criaCliente(1);
+        
+        controle = criaAluguel(cliente, livro);
+        controle.inserir();
+        controle.consultarTodos();
+        
+        ResultSet rs = controle.getrsdados();
+        
+        controle.devolucao(retornaId(rs, 1, "id_aluguel"));
+    
+        try{
+          assertEquals(false,rs.next());  
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }      
+    }
+    
+     /**
+     * Devolução quando existe dois emprestimos cadastrados.
+     */
+    @Test
+    public void DevolucaoComDoisCadastrosTest(){
+        
+        setCaminhosCliente();
+        setCaminhosLivro();
+        setCaminhosAluguel();
+        
+        int livro = criaLivro(1);
+        int cliente = criaCliente(1);
+        
+        controle = criaAluguel(cliente, livro);
+        controle.inserir();
+        controle.consultarTodos();
+        
+        ResultSet rs = controle.getrsdados();
+        
+        controle.devolucao(retornaId(rs, 1, "id_aluguel"));
+    
+        try{
+          assertEquals(false,rs.next());  
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }      
+    } 
 }

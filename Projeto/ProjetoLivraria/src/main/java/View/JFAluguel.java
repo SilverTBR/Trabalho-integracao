@@ -367,6 +367,11 @@ public final class JFAluguel extends javax.swing.JFrame {
                 jBResetarClientesMouseClicked(evt);
             }
         });
+        jBResetarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBResetarClientesActionPerformed(evt);
+            }
+        });
 
         jLBuscaLivros.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLBuscaLivros.setText("Titulo:");
@@ -409,6 +414,11 @@ public final class JFAluguel extends javax.swing.JFrame {
         jBDevolucao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBDevolucaoMouseClicked(evt);
+            }
+        });
+        jBDevolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBDevolucaoActionPerformed(evt);
             }
         });
 
@@ -508,9 +518,9 @@ public final class JFAluguel extends javax.swing.JFrame {
                 .addComponent(JPTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JBackgroundLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 20, Short.MAX_VALUE)
                         .addComponent(jLTituloCad1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLBusca)
@@ -576,7 +586,7 @@ public final class JFAluguel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(JBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         pack();
@@ -688,6 +698,14 @@ public final class JFAluguel extends javax.swing.JFrame {
             renovar();
         }
     }//GEN-LAST:event_jBRenovarMouseClicked
+
+    private void jBResetarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBResetarClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBResetarClientesActionPerformed
+
+    private void jBDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDevolucaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBDevolucaoActionPerformed
 
     public void atualizarTabelaTudo(){
         controle.consultarTodos();

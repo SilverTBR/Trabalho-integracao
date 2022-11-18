@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Controller.AluguelDAOTest" time="0.706" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Controller.RenovarDAOTest" time="4.691" tests="1" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="user.country" value="BR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-18.0.2.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire11012828655140947368\surefirebooter3442752350191576328.jar C:\Users\Guilherme Andreotti\AppData\Local\Temp\surefire11012828655140947368 2022-11-18T19-58-44_115-jvmRun1 surefire9693405018463313400tmp surefire_015194047008970355760tmp"/>
+    <property name="sun.java.command" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire682952508737352060\surefirebooter14860546657120352304.jar C:\Users\Guilherme Andreotti\AppData\Local\Temp\surefire682952508737352060 2022-11-17T13-22-40_637-jvmRun1 surefire13399084711128382583tmp surefire_01665354162042067730tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="Controller.AluguelDAOTest#registroSimples3Test"/>
+    <property name="test" value="Controller.RenovarDAOTest#testDevolucao"/>
     <property name="surefire.test.class.path" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria\target\test-classes;C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria\target\classes;C:\Users\Guilherme Andreotti\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Guilherme Andreotti"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire11012828655140947368\surefirebooter3442752350191576328.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire682952508737352060\surefirebooter14860546657120352304.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.2.1+1-1"/>
@@ -58,5 +58,11 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="registroSimples3Test" classname="Controller.AluguelDAOTest" time="0.658"/>
+  <testcase name="testDevolucao" classname="Controller.RenovarDAOTest" time="4.667">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at Controller.RenovarDAOTest.testDevolucao(RenovarDAOTest.java:52)
+</failure>
+    <system-out><![CDATA[devolucao
+]]></system-out>
+  </testcase>
 </testsuite>

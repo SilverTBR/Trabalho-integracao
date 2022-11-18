@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: Controller.RenovarDAOTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.691 s <<< FAILURE! - in Controller.RenovarDAOTest
+testDevolucao  Time elapsed: 4.667 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at Controller.RenovarDAOTest.testDevolucao(RenovarDAOTest.java:52)
+

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Controller.ClienteDAOTest" time="5.79" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Controller.ClienteDAOTest" time="0.508" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria\target\test-classes;C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria\target\classes;C:\Users\Guilherme Andreotti\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
+    <property name="java.class.path" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria\target\test-classes;C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria\target\classes;C:\Users\Guilherme Andreotti\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,10 +15,10 @@
     <property name="user.country" value="BR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-18.0.2.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire4704991750786208368\surefirebooter8596420622148100506.jar C:\Users\Guilherme Andreotti\AppData\Local\Temp\surefire4704991750786208368 2022-11-08T15-00-45_084-jvmRun1 surefire12705886523357839079tmp surefire_05384705837916741379tmp"/>
+    <property name="sun.java.command" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire14288687756639278919\surefirebooter433147877946534600.jar C:\Users\Guilherme Andreotti\AppData\Local\Temp\surefire14288687756639278919 2022-11-18T20-00-55_305-jvmRun1 surefire12504611731446583852tmp surefire_05874931478723953487tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="Controller.ClienteDAOTest"/>
-    <property name="surefire.test.class.path" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria\target\test-classes;C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria\target\classes;C:\Users\Guilherme Andreotti\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
+    <property name="test" value="Controller.ClienteDAOTest#registroUnico2Test"/>
+    <property name="surefire.test.class.path" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria\target\test-classes;C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria\target\classes;C:\Users\Guilherme Andreotti\.m2\repository\org\postgresql\postgresql\42.5.0\postgresql-42.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Guilherme Andreotti\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Guilherme Andreotti"/>
     <property name="user.language" value="pt"/>
@@ -26,12 +26,12 @@
     <property name="java.version.date" value="2022-08-18"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-18.0.2.1"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria"/>
+    <property name="basedir" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire4704991750786208368\surefirebooter8596420622148100506.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\GUILHE~1\AppData\Local\Temp\surefire14288687756639278919\surefirebooter433147877946534600.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.2.1+1-1"/>
@@ -46,7 +46,7 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\GUILHE~1\AppData\Local\Temp\"/>
     <property name="java.version" value="18.0.2.1"/>
-    <property name="user.dir" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho 2\Trabalho-integracao\Projeto\ProjetoLivraria"/>
+    <property name="user.dir" value="C:\Users\Guilherme Andreotti\Desktop\pasta trabalho\Trabalho-integracao-main\Projeto\ProjetoLivraria"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
@@ -58,9 +58,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="cpfVazioTest" classname="Controller.ClienteDAOTest" time="3.749"/>
-  <testcase name="cpfInvalidoTest" classname="Controller.ClienteDAOTest" time="0.64"/>
-  <testcase name="registroUnicoTest" classname="Controller.ClienteDAOTest" time="0.456"/>
-  <testcase name="invalidoBairroTest" classname="Controller.ClienteDAOTest" time="0.705"/>
-  <testcase name="registroDuploTest" classname="Controller.ClienteDAOTest" time="0.209"/>
+  <testcase name="registroUnico2Test" classname="Controller.ClienteDAOTest" time="0.483"/>
 </testsuite>

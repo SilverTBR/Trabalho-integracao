@@ -204,22 +204,7 @@ public class AluguelDAO extends DAO{
         return true;
     }   
     
-    public boolean verificarLivroAlugado(){
-        try {
-            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
-            int concorrencia = ResultSet.CONCUR_UPDATABLE;
-            pstdados = connection.prepareStatement(verLivroAlugado, tipo, concorrencia);
-            pstdados.setInt(1, Aluguel.getIdLivro());
-            rsdados = pstdados.executeQuery();
-            if(rsdados.next()) {
-                return true;
-            }
-            return false;
-        } catch (SQLException erro) {
-            System.out.println("Erro ao verificar cliente pendente: " + erro);
-        }
-        return true;
-    }
+
     
     public TableModel getPesquisaModel(String busca){
         conectar();

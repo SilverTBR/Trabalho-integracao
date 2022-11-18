@@ -27,7 +27,7 @@ public class LivroDAO extends DAO{
     private static final String consultarLivro = "SELECT * FROM livro ORDER BY id_livro";
     private static final String consultarCount = "SELECT COUNT(id_livro) FROM livro";
     private static final String verLivro = "SELECT id_livro FROM livro WHERE id_livro = ?";
-    private static final String consultarLivrosSimples = "select id_livro, titulo from livro where titulo ILIKE ? and id_livro not in (select id_livro from aluguel)";
+    private static final String consultarLivrosSimples = "select id_livro, titulo from livro where titulo ILIKE ? and id_livro not in (select id_livro from aluguel where devolucao = 'false')";
 
     public Livro getLivro(){
         return livro;

@@ -725,7 +725,6 @@ public final class JFAluguel extends javax.swing.JFrame {
     
     public void limparCampos(){
         jTDataDev.setText("");
-        jTDataAluguel.setText("");
     }
     
     public void getAtualData(){

@@ -31,6 +31,7 @@ id_cliente integer not null,
 id_livro integer not null,
 data_aluguel varchar(10) not null,
 data_devolucao varchar(10) not null,
+devolucao boolean not null,
 CONSTRAINT fk_id_cliente
     FOREIGN KEY (id_cliente)
     REFERENCES cliente (id_cliente)

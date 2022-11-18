@@ -46,8 +46,8 @@ public class AluguelDAOTest{
     void setCaminhosCliente(){
         controleCliente.setCaminhoTeste();
         controle.conectar();
-        controle.excluir();
         controleCliente.conectar();
+        controle.excluir();
         controleCliente.excluir();  
     }
     
@@ -56,6 +56,7 @@ public class AluguelDAOTest{
         controle.conectar();
         controle.excluir();
         controleLivro.conectar();
+        controleLivro.excluir();
     }
     
     void setCaminhosAluguel(){
@@ -83,7 +84,7 @@ public class AluguelDAOTest{
         controleCliente.getCliente().setEstado("SP");
         controleCliente.getCliente().setEndereco("End. Teste");
         controleCliente.getCliente().setCidade("Testalopis");
-        if(opt == 2){controleCliente.getCliente().setCPF("121.818.818-82");}
+        if(opt == 2){controleCliente.getCliente().setCPF("121.858.818-82");}
         controleCliente.getCliente().setCPF("121.818.818-81");
         controleCliente.getCliente().setBairro("Bairro Teste"); 
     
@@ -117,7 +118,7 @@ public class AluguelDAOTest{
   
     public AluguelDAO criaAluguel(int idCli, int idLiv){
         
-        controle.getAluguel().setIdAluguel(1);
+   
         controle.getAluguel().setDataAluguel("02-09-2021");
         controle.getAluguel().setDataDev("02-12-2022");
         controle.getAluguel().setIdCliente(idCli);
@@ -133,9 +134,10 @@ public class AluguelDAOTest{
     
     @Test
     public void registroSimplesTest(){    
+        
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int livro = criaLivro(1);
         int cliente = criaCliente(1);
@@ -159,9 +161,10 @@ public class AluguelDAOTest{
     
     @Test
     public void registroSimples2Test(){    
+
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int livro = criaLivro(1);
         int cliente = criaCliente(1);
@@ -187,9 +190,10 @@ public class AluguelDAOTest{
     
     @Test
     public void registroSimples3Test(){    
+        
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int livro = criaLivro(1);
         controleLivro.getLivro().setSobrenomeAutor("Teste 2");
@@ -207,16 +211,45 @@ public class AluguelDAOTest{
         } catch (SQLException ex) {
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }  
-    }     
+    }  
+    
+        /**
+     * Testando o registro normal de um aluguel, com cliente e livro alguns dados diferentes HAPPY PATH
+     */
+    
+    @Test
+    public void registroSimples4Test(){    
+        
+        setCaminhosAluguel();
+        setCaminhosCliente();
+        setCaminhosLivro();
+        
+        int livro = criaLivro(1);
+        int cliente = criaCliente(1);
+        
+        controle = criaAluguel(cliente, livro);
+        controle.getAluguel().setDataDev("18-12-2023");
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        try{
+          assertEquals(true,rs.next());
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }  
+    }  
     /**
      * Testando o registro normal duplo de um aluguel, com cliente e livro HAPPY PATH
      */
     
     @Test
     public void registroDuploTest(){     
+        
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int cliente = criaCliente(1);
         int livro = criaLivro(1);
@@ -239,20 +272,19 @@ public class AluguelDAOTest{
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
         }  
     } 
-    
-     /**
-     * Testando o registro normal duplo de um aluguel com clientes diferentes, com cliente e livro HAPPY PATH
+ 
+        /**
+     * Testando o registro normal duplo de um aluguel, com cliente e livro HAPPY PATH
      */
     
     @Test
-    public void registroDuploClientesDiferentesTest(){   
+    public void registroDuplo2Test(){     
+        
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int cliente = criaCliente(1);
-        int cliente2 = criaCliente(2);
-        
         int livro = criaLivro(1);
         int livro2 = criaLivro(2);
         
@@ -260,7 +292,9 @@ public class AluguelDAOTest{
             controle = criaAluguel(cliente, livro);
             controle.inserir();
 
-            controle = criaAluguel(cliente2, livro2);
+            controle = criaAluguel(cliente, livro2);
+            controle.getAluguel().setDataAluguel("03-10-2021");
+            controle.getAluguel().setDataDev("05-12-2022");            
             controle.inserir();
 
             controle.consultarCount();
@@ -280,9 +314,10 @@ public class AluguelDAOTest{
     
     @Test
     public void invalidoDataDevTest(){ 
+
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.getAluguel().setDataDev("02-09-202");
@@ -304,9 +339,10 @@ public class AluguelDAOTest{
     
     @Test
     public void alterandoDataDevTest(){      
+        
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.getAluguel().setDataDev("02-09-2022");
@@ -328,9 +364,10 @@ public class AluguelDAOTest{
     
     @Test
     public void alterandoDataAluguelTest(){     
+        
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.getAluguel().setDataDev("02-12-2021");
@@ -353,9 +390,10 @@ public class AluguelDAOTest{
     @Test
     public void pesquisaTabelaAluguelTest(){
         
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
+        
         controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
        
@@ -378,9 +416,10 @@ public class AluguelDAOTest{
     @Test
     public void pesquisaTabelaClienteTest(){
         
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
+        
         controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
         controle.consultarTodos();
@@ -404,9 +443,10 @@ public class AluguelDAOTest{
     @Test
     public void pesquisaTabelaLivroTest(){
         
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
+        
         controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
         controle.consultarTodos();
@@ -429,9 +469,10 @@ public class AluguelDAOTest{
     @Test
     public void idInexistenteTest(){
         
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
+        
         controle = criaAluguel(2, criaLivro(1));
         controle.inserir();
   
@@ -447,9 +488,9 @@ public class AluguelDAOTest{
     @Test
     public void DevolucaoUnicaTest(){
         
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int livro = criaLivro(1);
         int cliente = criaCliente(1);
@@ -477,9 +518,9 @@ public class AluguelDAOTest{
     @Test
     public void DevolucaoComDoisCadastrosTest(){
         
+        setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
-        setCaminhosAluguel();
         
         int livro = criaLivro(1);
         int cliente = criaCliente(1);

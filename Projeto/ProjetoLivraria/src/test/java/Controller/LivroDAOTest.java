@@ -41,15 +41,17 @@ public class LivroDAOTest {
     public void tearDown() {
     }
     
-    public LivroDAO criaLivroGenerico()
-    {
-        
+    public void setCaminhos(){
         controle.setCaminhoTeste();
         controle.conectar();
         aluguel.conectar();
         aluguel.excluir();
-        controle.excluir();  
-        
+        controle.excluir();
+    }
+    
+    public LivroDAO criaLivroGenerico()
+    {
+                
         controle.getLivro().setTitulo("Teste");
         controle.getLivro().setGenero("Teste");
         controle.getLivro().setEditora("Teste");
@@ -66,8 +68,33 @@ public class LivroDAOTest {
     
     @Test
     public void registroUnicoTest(){
-          
+        
+        setCaminhos();
         controle = criaLivroGenerico();
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        try{
+            assertEquals(true,rs.next());
+            
+            controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!");
+        }          
+    }
+    
+        /**
+     * Teste com cadastro dando sucesso.
+     */
+    
+    @Test
+    public void registroUnico2Test(){
+         
+        setCaminhos();
+        controle = criaLivroGenerico();
+        controle.getLivro().setGenero("Teste 2");
+        controle.getLivro().setEditora("Teste 2");
         controle.inserir();
         controle.consultarTodos();
         ResultSet rs = controle.getrsdados();
@@ -88,11 +115,7 @@ public class LivroDAOTest {
     @Test
     public void registroDuploTest(){
          
-        controle.setCaminhoTeste();
-        controle.conectar();
-        aluguel.conectar();
-        aluguel.excluir();
-        controle.excluir();
+        setCaminhos();
              
         try{    
             controle.getLivro().setTitulo("Teste");
@@ -127,7 +150,8 @@ public class LivroDAOTest {
     
      @Test
     public void qntPgnsInvalidoTest(){
-          
+        
+        setCaminhos();
         controle = criaLivroGenerico();
         controle.getLivro().setQntPgns(0);
         controle.inserir();
@@ -150,6 +174,7 @@ public class LivroDAOTest {
     @Test
     public void nomeInvalidoTest(){
    
+        setCaminhos();
         controle = criaLivroGenerico();
         controle.getLivro().setTitulo("Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste"
         + "Teste Teste Teste Teste Teste Teste Teste");     
@@ -172,7 +197,8 @@ public class LivroDAOTest {
     
     @Test
     public void tituloVazioTest(){
-          
+        
+        setCaminhos();
         controle = criaLivroGenerico();
         controle.getLivro().setTitulo("");
         controle.inserir();

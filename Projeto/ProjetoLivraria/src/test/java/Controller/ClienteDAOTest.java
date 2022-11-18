@@ -39,15 +39,16 @@ public class ClienteDAOTest{
     public void tearDown() {
     }
 
-
-    public ClienteDAO criaClienteGenerico(){   
-        
+    public void setCaminhos(){
         controle.setCaminhoTeste();
         controle.conectar();
         aluguel.conectar();
         aluguel.excluir();
-        controle.excluir();  
-        
+        controle.excluir();
+    }
+
+    public ClienteDAO criaClienteGenerico(){   
+                
         controle.getCliente().setNome("Teste");
         controle.getCliente().setSobrenome("Teste");
         controle.getCliente().setEstado("SP");
@@ -63,7 +64,8 @@ public class ClienteDAOTest{
      */   
     @Test
     public void registroUnicoTest(){
-        
+
+        setCaminhos();
         controle = criaClienteGenerico();
         controle.inserir();
         controle.consultarTodos();
@@ -83,6 +85,7 @@ public class ClienteDAOTest{
     @Test
     public void registroUnico2Test(){
         
+        setCaminhos();
         controle = criaClienteGenerico();
         controle.getCliente().setEstado("PR");
         controle.getCliente().setEndereco("End. Teste 2");
@@ -105,11 +108,7 @@ public class ClienteDAOTest{
     @Test
     public void registroDuploTest(){
          
-        controle.setCaminhoTeste();
-        controle.conectar();
-        aluguel.conectar();
-        aluguel.excluir();
-        controle.excluir();
+        setCaminhos();
         
         try{ 
             controle.getCliente().setNome("Teste");
@@ -147,7 +146,8 @@ public class ClienteDAOTest{
     
     @Test
     public void invalidoBairroTest(){
-                 
+        
+        setCaminhos();
         controle = criaClienteGenerico();
         controle.getCliente().setBairro("Bairro Teste Teste Teste Teste Teste Teste Teste Teste");
         controle.inserir();
@@ -169,7 +169,8 @@ public class ClienteDAOTest{
     
     @Test
     public void cpfInvalidoTest(){
-                     
+        
+        setCaminhos();
         controle = criaClienteGenerico();
         controle.getCliente().setCPF("111.1121.111-11");
         controle.inserir();
@@ -191,7 +192,8 @@ public class ClienteDAOTest{
     
     @Test
     public void cpfVazioTest(){
-          
+         
+        setCaminhos();
         controle = criaClienteGenerico();
         controle.getCliente().setCPF("");
         controle.inserir();

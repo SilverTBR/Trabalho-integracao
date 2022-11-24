@@ -131,7 +131,7 @@ public class AluguelDAOTest{
     }
     
      /**
-     * Testando o registro normal de um aluguel, com cliente e livro HAPPY PATH
+     * Testando o registro normal de um aluguel, com cliente e livro HAPPY PATH.
      */
     
     @Test

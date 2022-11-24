@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class AluguelDAOTest{
     
+    
     AluguelDAO controle = new AluguelDAO();
     ClienteDAO controleCliente = new ClienteDAO();
     LivroDAO controleLivro = new LivroDAO();
@@ -123,6 +124,7 @@ public class AluguelDAOTest{
         controle.getAluguel().setDataDev("02-12-2022");
         controle.getAluguel().setIdCliente(idCli);
         controle.getAluguel().setIdLivro(idLiv);
+        
         
         return controle;
         
@@ -483,62 +485,88 @@ public class AluguelDAOTest{
     }
     
      /**
-     * Devolução com só um cadastro, HAPPY PATH.
+     * Devolução ainda não realizada HAPPY PATH.
      */
     @Test
-    public void DevolucaoUnicaTest(){
+    public void DevolucaoNaoRealizadaTest(){
         
         setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
         
-        int livro = criaLivro(1);
-        int cliente = criaCliente(1);
-        
-        controle = criaAluguel(cliente, livro);
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
-        controle.consultarTodos();
         
-        ResultSet rs = controle.getrsdados();
-        
-        controle.devolucao(retornaId(rs, 1, "id_aluguel"));
-    
         try{
-          assertEquals(false,rs.next());  
+          controle.consultarTodos();
+          ResultSet rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals(false,rs.getBoolean("devolucao"));
+          }
           controle.desconectar();
           
         } catch (SQLException ex) {
-            fail("Erro ao executar o teste, gerou uma falha de conexão!");
-        }      
+            fail("Erro ao executar o teste, gerou uma falha de conexão!" + ex);
+        }    
+    
     }
     
      /**
-     * Devolução quando existe dois emprestimos cadastrados.
+     * Devolução realizada HAPPY PATH.
      */
     @Test
-    public void DevolucaoComDoisCadastrosTest(){
+    public void DevolucaoRealizadaTest(){
         
         setCaminhosAluguel();
         setCaminhosCliente();
         setCaminhosLivro();
         
-        int livro = criaLivro(1);
-        int cliente = criaCliente(1);
-        
-        controle = criaAluguel(cliente, livro);
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
         controle.inserir();
         controle.consultarTodos();
-        
         ResultSet rs = controle.getrsdados();
-        
         controle.devolucao(retornaId(rs, 1, "id_aluguel"));
-    
+        
         try{
-          assertEquals(false,rs.next());  
+          controle.consultarTodos();
+          rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals(true,rs.getBoolean("devolucao"));
+          }
+          controle.desconectar();
+          
+        } catch (SQLException ex) {
+            fail("Erro ao executar o teste, gerou uma falha de conexão!" + ex);
+        }    
+    }
+    
+     /**
+     * Teste para verificar se determinado livro que foi devolvido, retorna para a lista de livros. HAPPY PATH
+     */
+    @Test
+    public void DevolucaoRetornaParaLista(){
+        
+        setCaminhosAluguel();
+        setCaminhosCliente();
+        setCaminhosLivro();
+        
+        controle = criaAluguel(criaCliente(1), criaLivro(1));
+        controle.inserir();
+        controle.consultarTodos();
+        ResultSet rs = controle.getrsdados();
+        controle.devolucao(retornaId(rs, 1, "id_aluguel"));
+        
+        controle.getLivroModel(nome);        
+        try{
+          rs = controle.getrsdados();
+          if(rs.first()) {
+            assertEquals(nome,rs.getString("nome"));
+          }
           controle.desconectar();
           
         } catch (SQLException ex) {
             fail("Erro ao executar o teste, gerou uma falha de conexão!");
-        }      
+        }    
+        
     } 
 }

@@ -19,7 +19,7 @@ public class AluguelDAO extends DAO{
     private ResultSet rsdados = null;
     
     private static final String inserirAluguel = "INSERT INTO aluguel (id_cliente, id_livro, data_aluguel, data_devolucao, devolucao) VALUES (?, ?, ?, ?, false)";
-    private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
+    private static final String consultarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao, devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String buscarAluguel = "SELECT id_aluguel, aluguel.id_cliente, nome, sobrenome, livro.id_livro, titulo, data_aluguel, data_devolucao FROM aluguel, cliente, livro where aluguel.id_cliente = cliente.id_cliente and aluguel.id_livro = livro.id_livro and devolucao = 'false' and cliente.nome like ? group by aluguel.id_aluguel, aluguel.id_cliente, livro.id_livro,cliente.nome, cliente.sobrenome order by aluguel.id_aluguel, aluguel.id_cliente asc";
     private static final String excluirTudo = "delete from aluguel";
     private static final String consultarCount = "SELECT COUNT(id_aluguel) FROM aluguel";
@@ -157,6 +157,7 @@ public class AluguelDAO extends DAO{
                 modeloJT.setValueAt(rsdados.getString("titulo"), linha, 5);
                 modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 6);
                 modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 7);
+                modeloJT.setValueAt(rsdados.getBoolean("devolucao"), linha, 8);
 
                 linha++;
             }

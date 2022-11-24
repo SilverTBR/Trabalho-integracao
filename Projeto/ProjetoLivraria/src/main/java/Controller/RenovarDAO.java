@@ -14,10 +14,15 @@ import javax.swing.JOptionPane;
  * @author Eduardo
  */
 public class RenovarDAO extends DAO{
+        
         private PreparedStatement pstdados = null;
         private ResultSet rsdados = null;
     
         private static final String renovarAluguel = "UPDATE aluguel SET data_devolucao = ? WHERE id_aluguel = ?";
+        
+        public ResultSet getrsdados(){
+            return rsdados;
+        }
 
         public boolean devolucao(String data, int id) {
             conectar();

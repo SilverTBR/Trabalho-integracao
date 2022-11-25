@@ -143,7 +143,7 @@ public class AluguelDAO extends DAO{
         try {
             
         int qntCol = rsdados.getMetaData().getColumnCount();
-        for(int col = 1; col<= qntCol; col++){
+        for(int col = 1; col<= qntCol-1; col++){
             modeloJT.addColumn(rsdados.getMetaData().getColumnLabel(col));
         }
 
@@ -157,7 +157,7 @@ public class AluguelDAO extends DAO{
                 modeloJT.setValueAt(rsdados.getString("titulo"), linha, 5);
                 modeloJT.setValueAt(rsdados.getString("data_aluguel"), linha, 6);
                 modeloJT.setValueAt(rsdados.getString("data_devolucao"), linha, 7);
-                modeloJT.setValueAt(rsdados.getBoolean("devolucao"), linha, 8);
+               
 
                 linha++;
             }
